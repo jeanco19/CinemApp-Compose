@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "726836087272",
+    "project_id": "cinemapp-compose",
+    "storage_bucket": "cinemapp-compose.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726836087272:android:f6f9de868cb813fa423c5d",
+        "android_client_info": {
+          "package_name": "com.jean.cinemappcompose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726836087272-tqk6kr9fkn6tqiim42jc4gblci6r9pbg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYvqirpFtylcEd3F5dFJrWPxUNvmSPnIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726836087272-tqk6kr9fkn6tqiim42jc4gblci6r9pbg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

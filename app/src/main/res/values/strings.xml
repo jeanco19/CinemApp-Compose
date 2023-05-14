@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">CinemApp Compose</string>
+
+    <!-- WELCOME SCREEN -->
+    <string name="welcome_app_name">CinemApp</string>
+    <string name="welcome_title">Bienvenido a CinemApp</string>
+    <string name="welcome_description">Descubre una mezcla de películas en constante expansión</string>
+    <string name="sign_in_button_text">Inicia Sesión</string>
+    <string name="sign_up_button_text">Regístrate</string>
+
+    <!-- LOGIN SCREEN -->
+    <string name="email_field_placeholder">Correo electrónico</string>
+    <string name="password_field_placeholder">Contraseña</string>
+    <string name="show_password_image_description">Enseñar contraseña</string>
+    <string name="forgot_your_password_text">¿Olvidaste tu contraseña?</string>
+    <string name="still_dont_have_account_text">¿Aún no tienes cuenta?.</string>
+    <string name="sign_up_here_text">Regístrate aquí</string>
+
+    <!-- SIGN UP SCREEN -->
+    <string name="name_field_placeholder">Nombre</string>
+    <string name="last_name_field_placeholder">Apellido</string>
+    <string name="already_have_an_account">¿Ya tienes cuenta?.</string>
+    <string name="sign_in_here_text">Inicia sesión aquí</string>
+    <string name="sign_up_successfully">Se ha registrado con éxito.</string>
+    <string name="sign_up_error">Ocurrió un error al realizar regístro. Inténtalo de nuevo.</string>
+
+    <!-- RECOVER PASSWORD SCREEN -->
+    <string name="recover_password_title">Recuperar contraseña</string>
+    <string name="recover_password_message">Ingresa el email con el que se registró y le  enviaremos las instrucciones para poder recuperar la contraseña:</string>
+    <string name="send_button_text">Enviar</string>
+
+</resources>
