@@ -1,0 +1,120 @@
+[versions]
+
+
+# Libraries
+ktx = "1.9.0"
+activityCompose = "1.6.1"
+lifecycleKtx = "2.6.1"
+
+# Jetpack Compose
+jetpackCompose = "1.4.0"
+composeMaterial = "1.4.3"
+composeMaterialIcons = "1.3.1"
+
+# Dagger Hilt
+hilt = "2.44.2"
+hiltNavigationCompose = "1.0.0"
+
+# Coroutines
+kotlixCoroutines = "1.6.4"
+
+# Navigation
+navigationCompose = "2.5.3"
+
+# Retrofit
+retrofit = "2.9.0"
+
+# Room Database
+room = "2.5.0"
+
+# Firebase
+firebaseAuth = "21.1.0"
+firebaseBom = "29.0.0"
+
+# Coil
+coilCompose = "1.3.2"
+
+# Accompanist
+accompanistSystemUi = "0.23.1"
+
+# Splash Screen
+splashScreen = "1.0.1"
+
+# JUnit
+junit = "4.13.2"
+androidxJUnit = "1.1.5"
+
+# Expresso
+expresso = "3.5.1"
+
+# Plugins
+androidGradlePlugin = "7.4.2"
+androidKotlinPlugin = "1.8.0"
+googleServicesPlugin = "4.3.15"
+
+
+[libraries]
+
+
+androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
+androidx-compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-lifecycle-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleKtx" }
+
+# Jetpack Compose
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "jetpackCompose" }
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "composeMaterial" }
+compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "jetpackCompose" }
+compose-material-icons = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "composeMaterial" }
+
+# Coroutines
+jetbrains-kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlixCoroutines" }
+
+# Navigation
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+
+# Retrofit
+squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+squareup-retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+
+# Dagger Hilt
+dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+dagger-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
+# Room Database
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+# Firebase
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
+
+# Coil
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
+
+# Accoumpanist
+accompanist-system-ui = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanistSystemUi" }
+
+# Splash Screen
+splash-screen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashScreen" }
+
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJUnit" }
+androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "expresso" }
+compose-test-junit = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "jetpackCompose" }
+compose-test-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "jetpackCompose" }
+compose-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "jetpackCompose" }
+
+
+[plugins]
+
+
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin"  }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "androidKotlinPlugin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "androidKotlinPlugin" }
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }
