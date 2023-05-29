@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.jean.cinemappcompose.presentation.navigation.SetupNavigation
-import com.jean.cinemappcompose.ui.theme.CinemAppComposeTheme
+import com.jean.cinemappcompose.presentation.ui.theme.CinemAppComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

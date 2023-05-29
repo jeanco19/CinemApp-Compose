@@ -22,7 +22,9 @@
     <string name="already_have_an_account">¿Ya tienes cuenta?.</string>
     <string name="sign_in_here_text">Inicia sesión aquí</string>
     <string name="sign_up_successfully">Se ha registrado con éxito.</string>
-    <string name="sign_up_error">Ocurrió un error al realizar regístro. Inténtalo de nuevo.</string>
+    <string name="error_sign_up">Ocurrió un error al realizar regístro. Inténtalo de nuevo.</string>
+    <string name="error_email_invalid_pattern">Formato de correo electrónico inválido.</string>
+    <string name="error_password_invalid_length">Tamaño de contraseña inválido, debe contener 8 dígitos.</string>
 
     <!-- RECOVER PASSWORD SCREEN -->
     <string name="recover_password_title">Recuperar contraseña</string>

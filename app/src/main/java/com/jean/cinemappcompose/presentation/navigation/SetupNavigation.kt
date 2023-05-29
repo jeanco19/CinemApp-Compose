@@ -65,11 +65,10 @@ fun SetupNavigation() {
 
         composable(DestinationScreen.SignUp.route) {
             SignUpScreen(
-                signUpClicked = {
-                    navigateTo(
-                        navController =  navController,
-                        destination = DestinationScreen.SignIn
-                    )
+                navigateToSignIn = {
+                    navController.navigate(route = DestinationScreen.SignIn.route) {
+                        popUpTo(route = DestinationScreen.SignUp.route) { inclusive = true }
+                    }
                 },
                 signInClicked = {
                     navigateTo(

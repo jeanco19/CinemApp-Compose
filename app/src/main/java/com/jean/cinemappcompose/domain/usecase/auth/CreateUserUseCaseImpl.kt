@@ -17,7 +17,7 @@ class CreateUserUseCaseImpl @Inject constructor(
             .append(name)
             .append(" ")
             .append(lastName).toString()
-        return authRepository.createUser(fullName, email)
+        return authRepository.createUser(fullName.trim(), email.trim())
     }
 
 }

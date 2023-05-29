@@ -1,10 +1,11 @@
 package com.jean.cinemappcompose.presentation.auth.screen
 
+import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,20 +15,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jean.cinemappcompose.R
+import com.jean.cinemappcompose.presentation.auth.SignUpUiState
+import com.jean.cinemappcompose.presentation.auth.component.EmailTextField
+import com.jean.cinemappcompose.presentation.auth.component.FormTextField
+import com.jean.cinemappcompose.presentation.auth.component.PasswordTextField
 import com.jean.cinemappcompose.presentation.auth.viewmodel.SignUpViewModel
-import com.jean.cinemappcompose.presentation.util.*
+import com.jean.cinemappcompose.presentation.common.component.AppNameText
+import com.jean.cinemappcompose.presentation.common.component.CustomProgressDialog
+import com.jean.cinemappcompose.presentation.common.component.DefaultButton
 
-private const val EMPTY_STRING = ""
-
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpScreen(
-    signUpClicked: () -> Unit,
+    navigateToSignIn: () -> Unit,
     signInClicked: () -> Unit,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
@@ -35,102 +41,131 @@ fun SignUpScreen(
     val context = LocalContext.current
     val controller = LocalSoftwareKeyboardController.current
 
-    var name by remember { mutableStateOf(EMPTY_STRING) }
-    var lastName by remember { mutableStateOf(EMPTY_STRING) }
-    var email by remember { mutableStateOf(EMPTY_STRING) }
-    var password by remember { mutableStateOf(EMPTY_STRING) }
-    var isSignUpEnabled by remember { mutableStateOf(false) }
-    isSignUpEnabled = viewModel.handleButtonEnable(name, lastName, email, password)
-
     LaunchedEffect(key1 = viewModel.uiState.isSignedUp) {
         if (viewModel.uiState.isSignedUp) {
             Toast.makeText(context, R.string.sign_up_successfully, Toast.LENGTH_SHORT).show()
-            signUpClicked()
+            navigateToSignIn()
             viewModel.resetFieldSignedUp()
         }
     }
 
+    Scaffold(
+        content = {
+            SignUpContent(
+                isLoading = viewModel.uiState.isLoading,
+                isButtonEnabled = viewModel.isButtonEnable,
+                hasEmailError = Pair(
+                    viewModel.uiState.hasEmailError,
+                    viewModel.uiState.errorType
+                ),
+                hasPasswordError = Pair(
+                    viewModel.uiState.hasPasswordError,
+                    viewModel.uiState.errorType
+                ),
+                nameValue = viewModel.name.value,
+                lastNameValue = viewModel.lastName.value,
+                emailValue = viewModel.email.value,
+                passwordValue = viewModel.password.value,
+                onNameTextChanged = {
+                    viewModel.name.value = it
+                    viewModel.handleButtonEnable()
+                },
+                onLastNameTextChanged = {
+                    viewModel.lastName.value = it
+                    viewModel.handleButtonEnable()
+                },
+                onEmailTextChanged = {
+                    viewModel.email.value = it
+                    viewModel.handleButtonEnable()
+                },
+                onPasswordTextChanged = {
+                    viewModel.password.value = it
+                    viewModel.handleButtonEnable()
+                },
+                onSignUpClicked = {
+                    controller?.hide()
+                    viewModel.resetFieldErrorMessages()
+                    viewModel.doSignUp()
+                }
+            )
+        },
+        bottomBar = {
+            SignUpBottom(onTextPressed = { signInClicked() })
+        }
+    )
+}
+
+@Composable
+fun SignUpContent(
+    isLoading: Boolean = false,
+    isButtonEnabled: Boolean = false,
+    hasEmailError: Pair<Boolean, String>,
+    hasPasswordError: Pair<Boolean, String>,
+    nameValue: String,
+    lastNameValue: String,
+    emailValue: String,
+    passwordValue: String,
+    onNameTextChanged: (String) -> Unit,
+    onLastNameTextChanged: (String) -> Unit,
+    onEmailTextChanged: (String) -> Unit,
+    onPasswordTextChanged: (String) -> Unit,
+    onSignUpClicked: () -> Unit
+) {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)
         .background(MaterialTheme.colors.background)) {
-        if (viewModel.uiState.isLoading) CustomProgressDialog()
+
+        if (isLoading) CustomProgressDialog()
+
         Spacer(modifier = Modifier.size(30.dp))
-        AppNameTitle()
+        AppNameText()
         Spacer(modifier = Modifier.size(30.dp))
         FormTextField(
-            value = name,
+            value = nameValue,
             label = stringResource(id = R.string.name_field_placeholder),
-            onTextChanged = { name = it }
+            imeAction = ImeAction.Next,
+            onTextChanged = { onNameTextChanged(it) }
         )
         Spacer(modifier = Modifier.size(10.dp))
         FormTextField(
-            value = lastName,
+            value = lastNameValue,
             label = stringResource(id = R.string.last_name_field_placeholder),
-            onTextChanged = { lastName = it }
+            imeAction = ImeAction.Next,
+            onTextChanged = { onLastNameTextChanged(it) }
         )
         Spacer(modifier = Modifier.size(10.dp))
         EmailTextField(
-            email = email,
-            hasError = viewModel.uiState.hasEmailError,
-            errorMessage = viewModel.uiState.errorFieldMessage,
-            onTextChanged = { email = it }
+            email = emailValue,
+            hasError = hasEmailError.first,
+            errorMessage = stringResource(id = handleSignUpErrorType(hasEmailError.second)),
+            imeAction = ImeAction.Next,
+            onTextChanged = { onEmailTextChanged(it) }
         )
         Spacer(modifier = Modifier.size(10.dp))
         PasswordTextField(
-            password = password,
-            hasError = viewModel.uiState.hasPasswordError,
-            errorMessage = viewModel.uiState.errorFieldMessage,
-            onTextChanged = { password = it }
+            password = passwordValue,
+            hasError = hasPasswordError.first,
+            errorMessage = stringResource(id = handleSignUpErrorType(hasPasswordError.second)),
+            imeAction = ImeAction.Done,
+            onTextChanged = { onPasswordTextChanged(it) }
         )
         Spacer(modifier = Modifier.size(50.dp))
-        SingleButton(
+        DefaultButton(
             label = stringResource(id = R.string.sign_up_button_text),
-            isButtonEnabled = isSignUpEnabled,
-            onButtonClicked = {
-                controller?.hide()
-                viewModel.resetFieldErrorMessages()
-                viewModel.doSignUp(
-                    name = name,
-                    lastName = lastName,
-                    email = email,
-                    password = password
-                )
-            }
+            isButtonEnabled = isButtonEnabled,
+            onButtonClicked = { onSignUpClicked() }
         )
-        SignInOption {
-            signInClicked()
-        }
+
     }
 }
 
 @Composable
-fun FormTextField(
-    value: String,
-    label: String,
-    onTextChanged: (String) -> Unit
-) {
-    Column {
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            label = { Text(text = label) },
-            value = value,
-            onValueChange = { onTextChanged(it) },
-            maxLines = 1,
-            singleLine = true,
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.primary,
-                focusedLabelColor = MaterialTheme.colors.primary
-            ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-        )
-    }
-}
-
-@Composable
-fun SignInOption(onTextPressed: () -> Unit) {
+fun SignUpBottom(onTextPressed: () -> Unit) {
     Row(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 16.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.Bottom
     ) {
@@ -147,5 +182,15 @@ fun SignInOption(onTextPressed: () -> Unit) {
             fontSize = 16.sp,
             color = MaterialTheme.colors.primary
         )
+    }
+}
+
+@StringRes
+private fun handleSignUpErrorType(errorType: String): Int {
+    return when(errorType) {
+        SignUpUiState.SignUpUiErrors.SIGN_UP_ERROR.name -> R.string.error_sign_up
+        SignUpUiState.SignUpUiErrors.EMAIL_INVALID_PATTERN.name -> R.string.error_email_invalid_pattern
+        SignUpUiState.SignUpUiErrors.PASSWORD_INVALID_LENGTH.name -> R.string.error_password_invalid_length
+        else -> R.string.error_sign_up
     }
 }

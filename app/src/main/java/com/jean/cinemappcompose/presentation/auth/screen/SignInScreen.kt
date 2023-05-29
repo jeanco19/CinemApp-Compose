@@ -12,10 +12,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jean.cinemappcompose.R
-import com.jean.cinemappcompose.presentation.util.AppNameTitle
-import com.jean.cinemappcompose.presentation.util.EmailTextField
-import com.jean.cinemappcompose.presentation.util.PasswordTextField
-import com.jean.cinemappcompose.presentation.util.SingleButton
+import com.jean.cinemappcompose.presentation.auth.component.EmailTextField
+import com.jean.cinemappcompose.presentation.auth.component.PasswordTextField
+import com.jean.cinemappcompose.presentation.common.component.AppNameText
+import com.jean.cinemappcompose.presentation.common.component.DefaultButton
 
 private const val EMPTY_STRING = ""
 
@@ -35,7 +35,7 @@ fun SignInScreen(
         .padding(16.dp)
         .background(MaterialTheme.colors.background)) {
         Spacer(modifier = Modifier.size(30.dp))
-        AppNameTitle()
+        AppNameText()
         Spacer(modifier = Modifier.size(30.dp))
         EmailTextField(
             email = email,
@@ -55,7 +55,7 @@ fun SignInScreen(
             color = MaterialTheme.colors.primary
         )
         Spacer(modifier = Modifier.size(40.dp))
-        SingleButton(
+        DefaultButton(
             label = stringResource(id = R.string.sign_in_button_text),
             isButtonEnabled = isLoginEnabled,
             onButtonClicked = { signInClicked() }

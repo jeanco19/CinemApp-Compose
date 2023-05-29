@@ -12,8 +12,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jean.cinemappcompose.R
-import com.jean.cinemappcompose.presentation.util.EmailTextField
-import com.jean.cinemappcompose.presentation.util.SingleButton
+import com.jean.cinemappcompose.presentation.auth.component.EmailTextField
+import com.jean.cinemappcompose.presentation.common.component.DefaultButton
 
 private const val EMPTY_STRING = ""
 
@@ -44,7 +44,7 @@ fun RecoverPasswordScreen() {
             onTextChanged = { email = it }
         )
         Spacer(modifier = Modifier.size(50.dp))
-        SingleButton(label = stringResource(id = R.string.send_button_text)) {
+        DefaultButton(label = stringResource(id = R.string.send_button_text)) {
             // TODO Llamar función de recuperar contraseña en el ViewModel
         }
     }

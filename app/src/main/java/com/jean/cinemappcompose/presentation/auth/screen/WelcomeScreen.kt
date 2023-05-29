@@ -10,8 +10,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jean.cinemappcompose.R
-import com.jean.cinemappcompose.presentation.util.AppNameTitle
-import com.jean.cinemappcompose.ui.theme.font_baloo
+import com.jean.cinemappcompose.presentation.common.component.AppNameText
+import com.jean.cinemappcompose.presentation.common.component.DefaultButton
+import com.jean.cinemappcompose.presentation.ui.theme.font_baloo
 
 @Composable
 fun WelcomeScreen(
@@ -23,10 +24,8 @@ fun WelcomeScreen(
         .padding(16.dp)
         .background(color = MaterialTheme.colors.background)) {
         Spacer(modifier = Modifier.size(40.dp))
-        AppNameTitle()
-        Spacer(modifier = Modifier.padding(top = 30.dp))
-        WelcomeBody()
-        AuthenticationButtons(
+        WelcomeContent()
+        WelcomeBottom(
             signInClicked = { signInClicked() },
             signUpClicked = { signUpClicked() }
         )
@@ -34,7 +33,9 @@ fun WelcomeScreen(
 }
 
 @Composable
-fun WelcomeBody() {
+fun WelcomeContent() {
+    AppNameText()
+    Spacer(modifier = Modifier.padding(top = 30.dp))
     Text(
         text = stringResource(id = R.string.welcome_title),
         fontSize = 24.sp,
@@ -51,7 +52,7 @@ fun WelcomeBody() {
 }
 
 @Composable
-fun AuthenticationButtons(
+fun WelcomeBottom(
     signInClicked: () -> Unit,
     signUpClicked: () -> Unit
 ) {
@@ -59,21 +60,13 @@ fun AuthenticationButtons(
         modifier = Modifier.fillMaxHeight(),
         verticalArrangement = Arrangement.Bottom
     ) {
-        Button(
+        DefaultButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(45.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = MaterialTheme.colors.onPrimary
-            ),
-            onClick = { signInClicked() }
-        ) {
-            Text(
-                text = stringResource(id = R.string.sign_in_button_text).uppercase(),
-                fontSize = 16.sp
-            )
-        }
+            label = stringResource(id = R.string.sign_in_button_text),
+            onButtonClicked = { signInClicked() }
+        )
         Spacer(modifier = Modifier.padding(top = 15.dp))
         OutlinedButton(
             modifier = Modifier

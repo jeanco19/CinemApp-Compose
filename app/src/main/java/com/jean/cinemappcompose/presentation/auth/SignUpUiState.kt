@@ -5,6 +5,13 @@ data class SignUpUiState(
     val isSignedUp: Boolean = false,
     val hasEmailError: Boolean = false,
     val hasPasswordError: Boolean = false,
-    val errorFieldMessage: String = "",
-    val errorMessage: String = ""
-)
+    val errorType: String = ""
+) {
+
+    enum class SignUpUiErrors {
+        SIGN_UP_ERROR,
+        EMAIL_INVALID_PATTERN,
+        PASSWORD_INVALID_LENGTH
+    }
+
+}

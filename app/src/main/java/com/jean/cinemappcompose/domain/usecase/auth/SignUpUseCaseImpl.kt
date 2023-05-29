@@ -11,18 +11,13 @@ class SignUpUseCaseImpl @Inject constructor(
     private val emailPatternValidator: EmailPatternValidator
 ) : SignUpUseCase {
 
-    override suspend operator fun invoke(
-        name: String,
-        lastName: String,
-        email: String,
-        password: String
-    ): SignUpResult {
-        return if (!emailPatternValidator.isValidEmail(email)) {
+    override suspend operator fun invoke(email: String, password: String): SignUpResult {
+        return if (!emailPatternValidator.isValidEmail(email.trim())) {
             SignUpResult.Error(SignUpErrorType.EMAIL_INVALID_PATTERN)
-        } else if (password.length < 8) {
+        } else if (password.trim().length < 8) {
             SignUpResult.Error(SignUpErrorType.PASSWORD_INVALID_LENGTH)
         } else {
-            authRepository.signUp(email, password)
+            authRepository.signUp(email.trim(), password.trim())
         }
     }
 

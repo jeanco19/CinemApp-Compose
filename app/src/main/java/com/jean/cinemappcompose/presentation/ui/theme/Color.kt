@@ -1,4 +1,4 @@
-package com.jean.cinemappcompose.ui.theme
+package com.jean.cinemappcompose.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

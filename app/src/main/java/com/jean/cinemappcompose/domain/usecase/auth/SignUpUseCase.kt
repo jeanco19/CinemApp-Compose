@@ -4,11 +4,6 @@ import com.jean.cinemappcompose.domain.model.auth.SignUpResult
 
 interface SignUpUseCase {
 
-    suspend operator fun invoke(
-        name: String,
-        lastName: String,
-        email: String,
-        password: String
-    ): SignUpResult
+    suspend operator fun invoke(email: String, password: String): SignUpResult
 
 }

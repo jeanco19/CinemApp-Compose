@@ -1,5 +1,6 @@
 package com.jean.cinemappcompose.presentation.auth.viewmodel
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -19,21 +20,23 @@ class SignUpViewModel @Inject constructor(
     private val createUserUseCase: CreateUserUseCase
 ) : ViewModel() {
 
+    var name: MutableState<String> = mutableStateOf("")
+    var lastName: MutableState<String> = mutableStateOf("")
+    var email: MutableState<String> = mutableStateOf("")
+    var password: MutableState<String> = mutableStateOf("")
+
+    var isButtonEnable = false
+
     var uiState by mutableStateOf(SignUpUiState())
         private set
 
-    fun doSignUp(
-        name: String,
-        lastName: String,
-        email: String,
-        password: String
-    ) {
+    fun doSignUp() {
         viewModelScope.launch {
             when (val result =
-                signUpUseCase(name.trim(), lastName.trim(), email.trim(), password.trim())) {
+                signUpUseCase(email.value, password.value)) {
                 is SignUpResult.Success -> {
                     uiState = uiState.copy(isLoading = true)
-                    createUser(name, lastName, email)
+                    createUser()
                 }
                 is SignUpResult.Error -> {
                     uiState = uiState.copy(isLoading = false)
@@ -43,9 +46,9 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    private fun createUser(name: String, lastName: String, email: String) {
+    private fun createUser() {
         viewModelScope.launch {
-            uiState = when (createUserUseCase(name.trim(), lastName.trim(), email.trim())) {
+            uiState = when (createUserUseCase(name.value, lastName.value, email.value)) {
                 is UserResult.Success -> {
                     uiState.copy(isLoading = false, isSignedUp = true)
                 }
@@ -61,34 +64,29 @@ class SignUpViewModel @Inject constructor(
             SignUpErrorType.SIGN_UP_ERROR -> {
                 uiState.copy(
                     isSignedUp = false,
-                    errorMessage = "Ocurrió un error al realizar regístro. Inténtalo de nuevo."
+                    errorType = SignUpUiState.SignUpUiErrors.SIGN_UP_ERROR.name
                 )
             }
             SignUpErrorType.EMAIL_INVALID_PATTERN -> {
                 uiState.copy(
                     hasEmailError = true,
-                    errorFieldMessage = "Formato de correo electrónico inválido."
+                    errorType = SignUpUiState.SignUpUiErrors.EMAIL_INVALID_PATTERN.name
                 )
             }
             SignUpErrorType.PASSWORD_INVALID_LENGTH -> {
                 uiState.copy(
                     hasPasswordError = true,
-                    errorFieldMessage = "Tamaño de contraseña inválido, debe contener 8 dígitos."
+                    errorType = SignUpUiState.SignUpUiErrors.PASSWORD_INVALID_LENGTH.name
                 )
             }
         }
     }
 
-    fun handleButtonEnable(
-        name: String,
-        lastName: String,
-        email: String,
-        password: String
-    ): Boolean {
-        return name.isNotEmpty() &&
-                lastName.isNotEmpty() &&
-                email.isNotEmpty() &&
-                password.isNotEmpty()
+    fun handleButtonEnable() {
+        isButtonEnable = name.value.isNotEmpty() &&
+                         lastName.value.isNotEmpty() &&
+                         email.value.isNotEmpty() &&
+                         password.value.isNotEmpty()
     }
 
     fun resetFieldErrorMessages() {
