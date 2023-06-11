@@ -17,6 +17,7 @@ hiltNavigationCompose = "1.0.0"
 
 # Coroutines
 kotlixCoroutines = "1.6.4"
+kotlixCoroutinesPlayServices = "1.6.0"
 
 # Navigation
 navigationCompose = "2.5.3"
@@ -68,6 +69,7 @@ compose-material-icons = { group = "androidx.compose.material", name = "material
 
 # Coroutines
 jetbrains-kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlixCoroutines" }
+jetbrains-kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlixCoroutinesPlayServices" }
 
 # Navigation
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }

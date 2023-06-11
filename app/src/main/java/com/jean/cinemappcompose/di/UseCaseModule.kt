@@ -2,18 +2,25 @@ package com.jean.cinemappcompose.di
 
 import com.jean.cinemappcompose.domain.repository.auth.AuthRepository
 import com.jean.cinemappcompose.domain.usecase.auth.*
-import com.jean.cinemappcompose.domain.utils.EmailPatternValidator
+import com.jean.cinemappcompose.core.EmailPatternValidator
+import com.jean.cinemappcompose.domain.repository.profile.ProfileRepository
+import com.jean.cinemappcompose.domain.usecase.profile.CreateUserUseCase
+import com.jean.cinemappcompose.domain.usecase.profile.CreateUserUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
 object UseCaseModule {
 
     // ----- AUTH MODULE ----- //
+
+    @Provides
+    fun provideGetCurrentUserId(authRepository: AuthRepository): GetCurrentUserIdUseCase {
+        return GetCurrentUserIdUseCaseImpl(authRepository)
+    }
 
     @Provides
     fun provideSignUpUseCase(
@@ -37,8 +44,8 @@ object UseCaseModule {
     }
 
     @Provides
-    fun provideCreateUserUseCase(authRepository: AuthRepository): CreateUserUseCase {
-        return CreateUserUseCaseImpl(authRepository)
+    fun provideCreateUserUseCase(profileRepository: ProfileRepository): CreateUserUseCase {
+        return CreateUserUseCaseImpl(profileRepository)
     }
 
 }

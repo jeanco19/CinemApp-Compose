@@ -5,20 +5,34 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jean.cinemappcompose.R
+import com.jean.cinemappcompose.presentation.auth.viewmodel.SignInViewModel
 import com.jean.cinemappcompose.presentation.common.component.AppNameText
 import com.jean.cinemappcompose.presentation.common.component.DefaultButton
 import com.jean.cinemappcompose.presentation.ui.theme.font_baloo
 
 @Composable
 fun WelcomeScreen(
+    viewModel: SignInViewModel = hiltViewModel(),
     signInClicked: () -> Unit,
-    signUpClicked: () -> Unit
+    signUpClicked: () -> Unit,
+    navigateToMovies: () -> Unit
 ) {
+
+    viewModel.validateSession()
+
+    LaunchedEffect(key1 = viewModel.uiState.isSignedIn) {
+        if (viewModel.uiState.isSignedIn) {
+            navigateToMovies()
+        }
+    }
+
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)
@@ -30,6 +44,7 @@ fun WelcomeScreen(
             signUpClicked = { signUpClicked() }
         )
     }
+
 }
 
 @Composable

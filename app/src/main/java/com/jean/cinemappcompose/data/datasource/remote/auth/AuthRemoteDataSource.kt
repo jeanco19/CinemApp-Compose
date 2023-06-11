@@ -4,13 +4,13 @@ import com.jean.cinemappcompose.domain.model.auth.*
 
 interface AuthRemoteDataSource {
 
+    val currentUserID: String
+
     suspend fun signUp(email: String, password: String): SignUpResult
 
     suspend fun signIn(email: String, password: String): SignInResult
 
-    suspend fun signOut(): SignOutResult
-
-    suspend fun createUser(fullName: String, email: String): UserResult
+    fun signOut()
 
     suspend fun recoverPassword(email: String): Boolean
 

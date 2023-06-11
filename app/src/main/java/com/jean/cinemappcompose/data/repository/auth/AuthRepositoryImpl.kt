@@ -9,6 +9,8 @@ class AuthRepositoryImpl @Inject constructor(
     private val authRemoteDataSource: AuthRemoteDataSource
 ) : AuthRepository {
 
+    override val currentUserID: String get() = authRemoteDataSource.currentUserID
+
     override suspend fun signUp(email: String, password: String): SignUpResult {
         return authRemoteDataSource.signUp(email, password)
     }
@@ -17,12 +19,8 @@ class AuthRepositoryImpl @Inject constructor(
         return authRemoteDataSource.signIn(email, password)
     }
 
-    override suspend fun signOut(): SignOutResult {
-        return authRemoteDataSource.signOut()
-    }
-
-    override suspend fun createUser(fullName: String, email: String): UserResult {
-        return authRemoteDataSource.createUser(fullName, email)
+    override fun signOut() {
+        authRemoteDataSource.signOut()
     }
 
     override suspend fun recoverPassword(email: String): Boolean {

@@ -1,7 +1,6 @@
-package com.jean.cinemappcompose.data.util
+package com.jean.cinemappcompose.core
 
 import android.util.Patterns
-import com.jean.cinemappcompose.domain.utils.EmailPatternValidator
 
 class EmailValidator : EmailPatternValidator {
 

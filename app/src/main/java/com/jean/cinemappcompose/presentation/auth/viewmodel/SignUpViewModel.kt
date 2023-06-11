@@ -1,15 +1,16 @@
 package com.jean.cinemappcompose.presentation.auth.viewmodel
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jean.cinemappcompose.core.Constants.EMPTY_STRING
 import com.jean.cinemappcompose.domain.model.auth.*
-import com.jean.cinemappcompose.domain.usecase.auth.CreateUserUseCase
+import com.jean.cinemappcompose.domain.usecase.auth.GetCurrentUserIdUseCase
+import com.jean.cinemappcompose.domain.usecase.profile.CreateUserUseCase
 import com.jean.cinemappcompose.domain.usecase.auth.SignUpUseCase
-import com.jean.cinemappcompose.presentation.auth.SignUpUiState
+import com.jean.cinemappcompose.presentation.auth.uistate.SignUpUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,13 +18,14 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase,
+    private val getCurrentUserIdUseCase: GetCurrentUserIdUseCase,
     private val createUserUseCase: CreateUserUseCase
 ) : ViewModel() {
 
-    var name: MutableState<String> = mutableStateOf("")
-    var lastName: MutableState<String> = mutableStateOf("")
-    var email: MutableState<String> = mutableStateOf("")
-    var password: MutableState<String> = mutableStateOf("")
+    var name by mutableStateOf(EMPTY_STRING)
+    var lastName by mutableStateOf(EMPTY_STRING)
+    var email by mutableStateOf(EMPTY_STRING)
+    var password by mutableStateOf(EMPTY_STRING)
 
     var isButtonEnable = false
 
@@ -32,10 +34,13 @@ class SignUpViewModel @Inject constructor(
 
     fun doSignUp() {
         viewModelScope.launch {
-            when (val result =
-                signUpUseCase(email.value, password.value)) {
+            uiState = uiState.copy(isLoading = true)
+            when (val result = signUpUseCase(email, password)) {
                 is SignUpResult.Success -> {
-                    uiState = uiState.copy(isLoading = true)
+                    uiState = uiState.copy(
+                        isLoading = false,
+                        isSignedUp = result.isGranted
+                    )
                     createUser()
                 }
                 is SignUpResult.Error -> {
@@ -48,51 +53,29 @@ class SignUpViewModel @Inject constructor(
 
     private fun createUser() {
         viewModelScope.launch {
-            uiState = when (createUserUseCase(name.value, lastName.value, email.value)) {
-                is UserResult.Success -> {
-                    uiState.copy(isLoading = false, isSignedUp = true)
-                }
-                is UserResult.Error -> {
-                    uiState.copy(isLoading = false)
-                }
-            }
+            createUserUseCase(getCurrentUserIdUseCase.currentUserID, name, lastName, email)
         }
     }
 
-    private fun handleResultErrors(errorType: SignUpErrorType) {
-        uiState = when (errorType) {
-            SignUpErrorType.SIGN_UP_ERROR -> {
-                uiState.copy(
-                    isSignedUp = false,
-                    errorType = SignUpUiState.SignUpUiErrors.SIGN_UP_ERROR.name
-                )
-            }
-            SignUpErrorType.EMAIL_INVALID_PATTERN -> {
-                uiState.copy(
-                    hasEmailError = true,
-                    errorType = SignUpUiState.SignUpUiErrors.EMAIL_INVALID_PATTERN.name
-                )
-            }
-            SignUpErrorType.PASSWORD_INVALID_LENGTH -> {
-                uiState.copy(
-                    hasPasswordError = true,
-                    errorType = SignUpUiState.SignUpUiErrors.PASSWORD_INVALID_LENGTH.name
-                )
-            }
-        }
+    private fun handleResultErrors(errorType: String) {
+        uiState = uiState.copy(
+            hasEmailError = errorType == SignUpErrorType.EMAIL_INVALID_PATTERN.name ||
+                            errorType == SignUpErrorType.EMAIL_ALREADY_IN_USE.name,
+            hasPasswordError = errorType == SignUpErrorType.PASSWORD_INVALID_LENGTH.name,
+            errorType = errorType
+        )
     }
 
     fun handleButtonEnable() {
-        isButtonEnable = name.value.isNotEmpty() &&
-                         lastName.value.isNotEmpty() &&
-                         email.value.isNotEmpty() &&
-                         password.value.isNotEmpty()
+        isButtonEnable = name.isNotEmpty() && lastName.isNotEmpty() &&
+                         email.isNotEmpty() && password.isNotEmpty()
     }
 
     fun resetFieldErrorMessages() {
         uiState = uiState.copy(
             hasEmailError = false,
-            hasPasswordError = false
+            hasPasswordError = false,
+            errorType = EMPTY_STRING
         )
     }
 

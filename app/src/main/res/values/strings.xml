@@ -8,13 +8,16 @@
     <string name="sign_in_button_text">Inicia Sesión</string>
     <string name="sign_up_button_text">Regístrate</string>
 
-    <!-- LOGIN SCREEN -->
+    <!-- SIGN IN SCREEN -->
     <string name="email_field_placeholder">Correo electrónico</string>
     <string name="password_field_placeholder">Contraseña</string>
     <string name="show_password_image_description">Enseñar contraseña</string>
     <string name="forgot_your_password_text">¿Olvidaste tu contraseña?</string>
     <string name="still_dont_have_account_text">¿Aún no tienes cuenta?.</string>
     <string name="sign_up_here_text">Regístrate aquí</string>
+    <string name="error_sign_in">Ocurrió un error al realizar el inicio de sesión. Inténtalo de nuevo.</string>
+    <string name="error_user_not_found">El correo electrónico no está registrado.</string>
+    <string name="error_password_wrong">Contraseña inválida.</string>
 
     <!-- SIGN UP SCREEN -->
     <string name="name_field_placeholder">Nombre</string>
@@ -24,6 +27,7 @@
     <string name="sign_up_successfully">Se ha registrado con éxito.</string>
     <string name="error_sign_up">Ocurrió un error al realizar regístro. Inténtalo de nuevo.</string>
     <string name="error_email_invalid_pattern">Formato de correo electrónico inválido.</string>
+    <string name="error_email_already_in_use">Este correo electrónico ya ha sido utilizado.</string>
     <string name="error_password_invalid_length">Tamaño de contraseña inválido, debe contener 8 dígitos.</string>
 
     <!-- RECOVER PASSWORD SCREEN -->

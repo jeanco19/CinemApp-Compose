@@ -2,76 +2,47 @@ package com.jean.cinemappcompose.data.datasource.remote.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
-import com.google.firebase.firestore.FirebaseFirestore
-import com.jean.cinemappcompose.data.util.Constants.COLLECTION_USERS
-import com.jean.cinemappcompose.data.util.Constants.EMAIL_FIELD
-import com.jean.cinemappcompose.data.util.Constants.FULL_NAME_FIELD
+import com.jean.cinemappcompose.core.Constants.EMPTY_STRING
+import com.jean.cinemappcompose.data.mapper.toSignInErrorTypes
+import com.jean.cinemappcompose.data.mapper.toSignUpErrorTypes
 import com.jean.cinemappcompose.domain.model.auth.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.io.IOException
 import javax.inject.Inject
 
 class AuthRemoteDataSourceImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val firebaseFirestore: FirebaseFirestore,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : AuthRemoteDataSource {
+
+    override val currentUserID: String get() = firebaseAuth.uid ?: EMPTY_STRING
 
     override suspend fun signUp(email: String, password: String): SignUpResult =
         withContext(ioDispatcher) {
             try {
-                var isSignUpGranted = false
-                firebaseAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnSuccessListener { isSignUpGranted = true }
-                    .addOnFailureListener { isSignUpGranted = false }
-                SignUpResult.Success(isGranted = isSignUpGranted)
+                firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+                SignUpResult.Success(isGranted = true)
             } catch (exception: FirebaseAuthException) {
-                SignUpResult.Error(SignUpErrorType.SIGN_UP_ERROR)
+                SignUpResult.Error(exception.toSignUpErrorTypes(exception.errorCode))
             }
         }
 
-    override suspend fun signIn(email: String, password: String): SignInResult =
-        withContext(ioDispatcher) {
+    override suspend fun signIn(email: String, password: String): SignInResult {
+        return withContext(ioDispatcher) {
             try {
-                var isLogInGranted = false
-                firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnSuccessListener { isLogInGranted = true }
-                    .addOnFailureListener { isLogInGranted = false }
-                SignInResult.Success(isGranted = isLogInGranted)
+                firebaseAuth.signInWithEmailAndPassword(email, password).await()
+                SignInResult.Success(isGranted = true)
             } catch (exception: FirebaseAuthException) {
-                SignInResult.Error(SignInErrorType.SIGN_IN_ERROR)
+                SignInResult.Error(exception.toSignInErrorTypes(exception.errorCode))
             }
-        }
-
-
-    override suspend fun signOut(): SignOutResult =
-        withContext(ioDispatcher) {
-        try {
-            firebaseAuth.signOut()
-            SignOutResult.Success(isGranted = true)
-        } catch (exception: FirebaseAuthException) {
-            SignOutResult.Error()
         }
     }
 
-    override suspend fun createUser(fullName: String, email: String): UserResult =
-        withContext(ioDispatcher) {
-        try {
-            var isRegisteredUser = false
-            firebaseFirestore.collection(COLLECTION_USERS).add(
-                hashMapOf(
-                    FULL_NAME_FIELD to fullName,
-                    EMAIL_FIELD to email
-                )
-            )
-                .addOnSuccessListener { isRegisteredUser = true }
-                .addOnFailureListener { isRegisteredUser = false }
-            UserResult.Success(isRegistered = isRegisteredUser)
-        } catch (exception: IOException) {
-            UserResult.Error
-        }
+
+    override fun signOut() {
+        firebaseAuth.signOut()
     }
 
     override suspend fun recoverPassword(email: String): Boolean {

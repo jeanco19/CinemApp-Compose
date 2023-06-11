@@ -65,6 +65,7 @@ dependencies {
 
     // Coroutines
     implementation libs.jetbrains.kotlinx.coroutines
+    implementation libs.jetbrains.kotlinx.coroutines.play.services
 
     // Navigation
     implementation libs.androidx.navigation.compose

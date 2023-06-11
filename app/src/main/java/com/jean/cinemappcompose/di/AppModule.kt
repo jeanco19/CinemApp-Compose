@@ -1,7 +1,7 @@
 package com.jean.cinemappcompose.di
 
-import com.jean.cinemappcompose.data.util.EmailValidator
-import com.jean.cinemappcompose.domain.utils.EmailPatternValidator
+import com.jean.cinemappcompose.core.EmailValidator
+import com.jean.cinemappcompose.core.EmailPatternValidator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

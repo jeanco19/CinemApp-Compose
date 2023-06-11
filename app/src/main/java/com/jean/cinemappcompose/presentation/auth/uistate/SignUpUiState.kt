@@ -1,4 +1,4 @@
-package com.jean.cinemappcompose.presentation.auth
+package com.jean.cinemappcompose.presentation.auth.uistate
 
 data class SignUpUiState(
     val isLoading: Boolean = false,
@@ -6,12 +6,4 @@ data class SignUpUiState(
     val hasEmailError: Boolean = false,
     val hasPasswordError: Boolean = false,
     val errorType: String = ""
-) {
-
-    enum class SignUpUiErrors {
-        SIGN_UP_ERROR,
-        EMAIL_INVALID_PATTERN,
-        PASSWORD_INVALID_LENGTH
-    }
-
-}
+)

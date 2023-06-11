@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jean.cinemappcompose.R
-import com.jean.cinemappcompose.presentation.auth.SignUpUiState
+import com.jean.cinemappcompose.domain.model.auth.SignUpErrorType
 import com.jean.cinemappcompose.presentation.auth.component.EmailTextField
 import com.jean.cinemappcompose.presentation.auth.component.FormTextField
 import com.jean.cinemappcompose.presentation.auth.component.PasswordTextField
@@ -33,9 +33,8 @@ import com.jean.cinemappcompose.presentation.common.component.DefaultButton
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpScreen(
-    navigateToSignIn: () -> Unit,
-    signInClicked: () -> Unit,
-    viewModel: SignUpViewModel = hiltViewModel()
+    viewModel: SignUpViewModel = hiltViewModel(),
+    navigateToSignIn: () -> Unit
 ) {
 
     val context = LocalContext.current
@@ -47,6 +46,13 @@ fun SignUpScreen(
             navigateToSignIn()
             viewModel.resetFieldSignedUp()
         }
+    }
+
+    if (viewModel.uiState.errorType.isNotEmpty() &&
+        !viewModel.uiState.hasEmailError &&
+        !viewModel.uiState.hasPasswordError) {
+        Toast.makeText(context, handleSignUpErrorType(viewModel.uiState.errorType), Toast.LENGTH_LONG).show()
+        viewModel.resetFieldErrorMessages()
     }
 
     Scaffold(
@@ -62,24 +68,24 @@ fun SignUpScreen(
                     viewModel.uiState.hasPasswordError,
                     viewModel.uiState.errorType
                 ),
-                nameValue = viewModel.name.value,
-                lastNameValue = viewModel.lastName.value,
-                emailValue = viewModel.email.value,
-                passwordValue = viewModel.password.value,
+                nameValue = viewModel.name,
+                lastNameValue = viewModel.lastName,
+                emailValue = viewModel.email,
+                passwordValue = viewModel.password,
                 onNameTextChanged = {
-                    viewModel.name.value = it
+                    viewModel.name = it
                     viewModel.handleButtonEnable()
                 },
                 onLastNameTextChanged = {
-                    viewModel.lastName.value = it
+                    viewModel.lastName = it
                     viewModel.handleButtonEnable()
                 },
                 onEmailTextChanged = {
-                    viewModel.email.value = it
+                    viewModel.email = it
                     viewModel.handleButtonEnable()
                 },
                 onPasswordTextChanged = {
-                    viewModel.password.value = it
+                    viewModel.password = it
                     viewModel.handleButtonEnable()
                 },
                 onSignUpClicked = {
@@ -90,7 +96,7 @@ fun SignUpScreen(
             )
         },
         bottomBar = {
-            SignUpBottom(onTextPressed = { signInClicked() })
+            SignUpBottom(onTextPressed = { navigateToSignIn() })
         }
     )
 }
@@ -188,9 +194,10 @@ fun SignUpBottom(onTextPressed: () -> Unit) {
 @StringRes
 private fun handleSignUpErrorType(errorType: String): Int {
     return when(errorType) {
-        SignUpUiState.SignUpUiErrors.SIGN_UP_ERROR.name -> R.string.error_sign_up
-        SignUpUiState.SignUpUiErrors.EMAIL_INVALID_PATTERN.name -> R.string.error_email_invalid_pattern
-        SignUpUiState.SignUpUiErrors.PASSWORD_INVALID_LENGTH.name -> R.string.error_password_invalid_length
+        SignUpErrorType.SIGN_UP_ERROR.name -> R.string.error_sign_up
+        SignUpErrorType.EMAIL_INVALID_PATTERN.name -> R.string.error_email_invalid_pattern
+        SignUpErrorType.EMAIL_ALREADY_IN_USE.name -> R.string.error_email_already_in_use
+        SignUpErrorType.PASSWORD_INVALID_LENGTH.name -> R.string.error_password_invalid_length
         else -> R.string.error_sign_up
     }
 }

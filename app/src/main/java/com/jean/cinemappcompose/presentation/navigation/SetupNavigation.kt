@@ -36,25 +36,29 @@ fun SetupNavigation() {
                         navController =  navController,
                         destination = DestinationScreen.SignUp
                     )
+                },
+                navigateToMovies = {
+                    navController.navigate(route = DestinationScreen.Movies.route) {
+                        popUpTo(route = DestinationScreen.Welcome.route) { inclusive = true }
+                    }
                 }
             )
         }
 
         composable(DestinationScreen.SignIn.route) {
             SignInScreen(
-                signInClicked = {
-                    navigateTo(
-                        navController = navController,
-                        destination = DestinationScreen.Movies
-                    )
+                navigateToMovies = {
+                    navController.navigate(route = DestinationScreen.Movies.route) {
+                        popUpTo(route = DestinationScreen.SignIn.route) { inclusive = true }
+                    }
                 },
-                signUpClicked = {
+                navigateToSignUp = {
                     navigateTo(
                         navController = navController,
                         destination = DestinationScreen.SignUp
                     )
                 },
-                recoverPasswordClicked = {
+                navigateToRecoverPassword = {
                     navigateTo(
                         navController = navController,
                         destination = DestinationScreen.RecoverPassword
@@ -69,12 +73,6 @@ fun SetupNavigation() {
                     navController.navigate(route = DestinationScreen.SignIn.route) {
                         popUpTo(route = DestinationScreen.SignUp.route) { inclusive = true }
                     }
-                },
-                signInClicked = {
-                    navigateTo(
-                        navController = navController,
-                        destination = DestinationScreen.SignIn
-                    )
                 }
             )
         }
@@ -84,7 +82,11 @@ fun SetupNavigation() {
         }
 
         composable(DestinationScreen.Movies.route) {
-            MoviesScreen()
+            MoviesScreen(navigateToSignIn = {
+                navController.navigate(route = DestinationScreen.SignIn.route) {
+                    popUpTo(DestinationScreen.Movies.route) { inclusive = true }
+                }
+            })
         }
 
     }

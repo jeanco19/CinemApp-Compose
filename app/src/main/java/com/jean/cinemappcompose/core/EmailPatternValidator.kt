@@ -1,4 +1,4 @@
-package com.jean.cinemappcompose.domain.utils
+package com.jean.cinemappcompose.core
 
 interface EmailPatternValidator {
 
