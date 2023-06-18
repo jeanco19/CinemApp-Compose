@@ -10,7 +10,7 @@ import com.jean.cinemappcompose.presentation.movie.screen.MoviesScreen
 private const val WELCOME_ROUTE = "welcome"
 private const val SIGN_IN_ROUTE = "sign_in"
 private const val SIGN_UP_ROUTE = "sign_up"
-private const val RECOVER_PASSWORD_ROUTE = "recover_password"
+private const val RESTART_PASSWORD_ROUTE = "restart_password"
 private const val MOVIES_ROUTE = "movies"
 
 @Composable
@@ -61,7 +61,7 @@ fun SetupNavigation() {
                 navigateToRecoverPassword = {
                     navigateTo(
                         navController = navController,
-                        destination = DestinationScreen.RecoverPassword
+                        destination = DestinationScreen.RestartPassword
                     )
                 }
             )
@@ -77,16 +77,23 @@ fun SetupNavigation() {
             )
         }
 
-        composable(DestinationScreen.RecoverPassword.route) {
-            RecoverPasswordScreen()
+        composable(DestinationScreen.RestartPassword.route) {
+            RestartPasswordScreen(
+                navigateToSignIn = {
+                    navController.navigate(route = DestinationScreen.SignIn.route) {
+                        popUpTo(route = DestinationScreen.RestartPassword.route) { inclusive = true }
+                    }
+                }
+            )
         }
 
         composable(DestinationScreen.Movies.route) {
-            MoviesScreen(navigateToSignIn = {
-                navController.navigate(route = DestinationScreen.SignIn.route) {
-                    popUpTo(DestinationScreen.Movies.route) { inclusive = true }
-                }
-            })
+            MoviesScreen(
+                navigateToSignIn = {
+                    navController.navigate(route = DestinationScreen.SignIn.route) {
+                        popUpTo(DestinationScreen.Movies.route) { inclusive = true }
+                    }
+                })
         }
 
     }
@@ -97,6 +104,6 @@ sealed class DestinationScreen(val route: String) {
     object Welcome: DestinationScreen(WELCOME_ROUTE)
     object SignIn: DestinationScreen(SIGN_IN_ROUTE)
     object SignUp: DestinationScreen(SIGN_UP_ROUTE)
-    object RecoverPassword: DestinationScreen(RECOVER_PASSWORD_ROUTE)
+    object RestartPassword: DestinationScreen(RESTART_PASSWORD_ROUTE)
     object Movies: DestinationScreen(MOVIES_ROUTE)
 }

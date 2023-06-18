@@ -3,6 +3,7 @@ package com.jean.cinemappcompose.data.datasource.remote.auth
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.jean.cinemappcompose.core.Constants.EMPTY_STRING
+import com.jean.cinemappcompose.data.mapper.toRestartPasswordErrorTypes
 import com.jean.cinemappcompose.data.mapper.toSignInErrorTypes
 import com.jean.cinemappcompose.data.mapper.toSignUpErrorTypes
 import com.jean.cinemappcompose.domain.model.auth.*
@@ -40,13 +41,21 @@ class AuthRemoteDataSourceImpl @Inject constructor(
         }
     }
 
-
     override fun signOut() {
         firebaseAuth.signOut()
     }
 
-    override suspend fun recoverPassword(email: String): Boolean {
-        return false
+    override suspend fun restartPassword(email: String): RestartPasswordResult {
+        return withContext(ioDispatcher) {
+            try {
+                firebaseAuth.sendPasswordResetEmail(email).await()
+                RestartPasswordResult.Success(isSuccess = true)
+            } catch (exception: FirebaseAuthException) {
+                RestartPasswordResult.Error(
+                    exception.toRestartPasswordErrorTypes(exception.errorCode)
+                )
+            }
+        }
     }
 
 }

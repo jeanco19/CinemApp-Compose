@@ -12,6 +12,6 @@ interface AuthRepository {
 
     fun signOut()
 
-    suspend fun recoverPassword(email: String): Boolean
+    suspend fun restartPassword(email: String): RestartPasswordResult
 
 }

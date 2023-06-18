@@ -15,7 +15,7 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 object UseCaseModule {
 
-    // ----- AUTH MODULE ----- //
+//---------- AUTH MODULE ----------//
 
     @Provides
     fun provideGetCurrentUserId(authRepository: AuthRepository): GetCurrentUserIdUseCase {
@@ -42,6 +42,16 @@ object UseCaseModule {
     fun providesSignOutUseCase(authRepository: AuthRepository): SignOutUseCase {
         return SignOutUseCaseImpl(authRepository)
     }
+
+    @Provides
+    fun provideRestartPasswordUseCase(
+        authRepository: AuthRepository,
+        emailPatternValidator: EmailPatternValidator
+    ): RestartPasswordUseCase {
+        return RestartPasswordUseCaseImpl(authRepository, emailPatternValidator)
+    }
+
+//---------- PROFILE MODULE ----------//
 
     @Provides
     fun provideCreateUserUseCase(profileRepository: ProfileRepository): CreateUserUseCase {

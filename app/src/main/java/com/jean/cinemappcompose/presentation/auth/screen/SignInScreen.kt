@@ -158,7 +158,7 @@ fun SignInBottom(onTextPressed: () -> Unit) {
         verticalAlignment = Alignment.Bottom
     ) {
         Text(
-            text = stringResource(id = R.string.still_dont_have_account_text),
+            text = stringResource(id = R.string.still_do_not_have_account_text),
             fontSize = 15.sp,
             color = Color.Gray
         )

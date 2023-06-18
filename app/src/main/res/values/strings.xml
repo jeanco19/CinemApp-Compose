@@ -13,7 +13,7 @@
     <string name="password_field_placeholder">Contraseña</string>
     <string name="show_password_image_description">Enseñar contraseña</string>
     <string name="forgot_your_password_text">¿Olvidaste tu contraseña?</string>
-    <string name="still_dont_have_account_text">¿Aún no tienes cuenta?.</string>
+    <string name="still_do_not_have_account_text">¿Aún no tienes cuenta?.</string>
     <string name="sign_up_here_text">Regístrate aquí</string>
     <string name="error_sign_in">Ocurrió un error al realizar el inicio de sesión. Inténtalo de nuevo.</string>
     <string name="error_user_not_found">El correo electrónico no está registrado.</string>
@@ -30,9 +30,11 @@
     <string name="error_email_already_in_use">Este correo electrónico ya ha sido utilizado.</string>
     <string name="error_password_invalid_length">Tamaño de contraseña inválido, debe contener 8 dígitos.</string>
 
-    <!-- RECOVER PASSWORD SCREEN -->
-    <string name="recover_password_title">Recuperar contraseña</string>
-    <string name="recover_password_message">Ingresa el email con el que se registró y le  enviaremos las instrucciones para poder recuperar la contraseña:</string>
+    <!-- RESTART PASSWORD SCREEN -->
+    <string name="restart_password_title">Reiniciar contraseña</string>
+    <string name="restart_password_message">Ingresa el correo electrónico de tú registro y te  enviaremos un correo electrónico para reiniciar tu contraseña.</string>
     <string name="send_button_text">Enviar</string>
+    <string name="restart_password_successfully">Se ha enviado el correo electrónico para el reinicio de contraseña.</string>
+    <string name="error_restart_password">Ocurrió un error al enviar el correo. Inténtalo de nuevo.</string>
 
 </resources>

@@ -23,9 +23,8 @@ class AuthRepositoryImpl @Inject constructor(
         authRemoteDataSource.signOut()
     }
 
-    override suspend fun recoverPassword(email: String): Boolean {
-        return false
-        // TODO implement Firebase recover password method
+    override suspend fun restartPassword(email: String): RestartPasswordResult {
+        return authRemoteDataSource.restartPassword(email)
     }
 
 }
