@@ -37,4 +37,9 @@
     <string name="restart_password_successfully">Se ha enviado el correo electrónico para el reinicio de contraseña.</string>
     <string name="error_restart_password">Ocurrió un error al enviar el correo. Inténtalo de nuevo.</string>
 
+    <!-- BOTTOM BAR OPTIONS -->
+    <string name="movie_list_option">Películas</string>
+    <string name="favorite_list_option">Favoritas</string>
+    <string name="profile_option">Perfil</string>
+
 </resources>

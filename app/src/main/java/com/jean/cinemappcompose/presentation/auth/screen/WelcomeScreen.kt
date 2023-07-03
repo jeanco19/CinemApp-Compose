@@ -22,14 +22,14 @@ fun WelcomeScreen(
     viewModel: SignInViewModel = hiltViewModel(),
     signInClicked: () -> Unit,
     signUpClicked: () -> Unit,
-    navigateToMovies: () -> Unit
+    navigateToHome: () -> Unit
 ) {
 
     viewModel.validateSession()
 
     LaunchedEffect(key1 = viewModel.uiState.isSignedIn) {
         if (viewModel.uiState.isSignedIn) {
-            navigateToMovies()
+            navigateToHome()
         }
     }
 

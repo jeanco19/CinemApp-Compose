@@ -33,7 +33,7 @@ import com.jean.cinemappcompose.presentation.common.component.DefaultButton
 @Composable
 fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel(),
-    navigateToMovies: () -> Unit,
+    navigateToHome: () -> Unit,
     navigateToSignUp: () -> Unit,
     navigateToRecoverPassword: () -> Unit
 ) {
@@ -44,7 +44,7 @@ fun SignInScreen(
 
     LaunchedEffect(key1 = viewModel.uiState.isSignedIn) {
         if (viewModel.uiState.isSignedIn) {
-            navigateToMovies()
+            navigateToHome()
         }
     }
 

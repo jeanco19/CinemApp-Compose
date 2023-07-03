@@ -8,7 +8,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.jean.cinemappcompose.presentation.navigation.SetupNavigation
+import androidx.navigation.compose.rememberNavController
+import com.jean.cinemappcompose.presentation.navigation.navgraph.RootNavGraph
 import com.jean.cinemappcompose.presentation.ui.theme.CinemAppComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    SetupNavigation()
+                    RootNavGraph(navController = rememberNavController())
                 }
             }
         }
