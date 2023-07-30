@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jean.cinemappcompose.core.util.Constants.EMPTY_STRING
-import com.jean.cinemappcompose.profile.domain.usecase.GetCurrentUserIdUseCase
 import com.jean.cinemappcompose.auth.domain.usecase.signin.SignInUseCase
 import com.jean.cinemappcompose.auth.util.AuthErrorParser
 import com.jean.cinemappcompose.auth.domain.model.EmailResult
@@ -21,20 +20,11 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     private val emailValidatorUseCase: EmailValidatorUseCase,
-    private val passwordValidatorUseCase: PasswordValidatorUseCase,
-    getCurrentUserIdUseCase: GetCurrentUserIdUseCase
+    private val passwordValidatorUseCase: PasswordValidatorUseCase
 ) : ViewModel() {
 
     var uiState by mutableStateOf(SignInUiState())
         private set
-
-    private val currentUserId = getCurrentUserIdUseCase.currentUserID
-
-    fun validateSession() {
-        if (currentUserId.isNotEmpty()) {
-            uiState = uiState.copy(isSignedIn = true)
-        }
-    }
 
     fun onEvent(event: SignInEvent) {
         when (event) {
@@ -89,8 +79,7 @@ class SignInViewModel @Inject constructor(
 
     private fun enableButton() {
         uiState = uiState.copy(
-            isButtonEnable = uiState.email.isNotEmpty() &&
-                             uiState.password.isNotEmpty()
+            isButtonEnable = uiState.email.isNotEmpty() && uiState.password.isNotEmpty()
         )
     }
 

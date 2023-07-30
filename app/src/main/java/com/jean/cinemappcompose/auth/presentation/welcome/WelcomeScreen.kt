@@ -20,8 +20,6 @@ fun WelcomeScreen(
     navigateToHome: () -> Unit
 ) {
 
-    viewModel.validateSession()
-
     LaunchedEffect(key1 = viewModel.uiState.isSignedIn) {
         if (viewModel.uiState.isSignedIn) {
             navigateToHome()

@@ -10,10 +10,16 @@ import com.jean.cinemappcompose.home.presentation.component.BottomBar
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(navController: NavHostController = rememberNavController()) {
+fun HomeScreen(
+    navController: NavHostController = rememberNavController(),
+    navigateToSignIn: () -> Unit
+) {
     Scaffold(bottomBar = {
         BottomBar(navController = navController)
     }) {
-        HomeBottomBarNavGraph(navController = navController)
+        HomeBottomBarNavGraph(
+            navController = navController,
+            navigateToSignIn = navigateToSignIn
+        )
     }
 }

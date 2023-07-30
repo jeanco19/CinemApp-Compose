@@ -20,7 +20,6 @@ fun SignInScreen(
     navigateToRecoverPassword: () -> Unit
 ) {
 
-    viewModel.validateSession()
     val state = viewModel.uiState
     val context = LocalContext.current
 

@@ -18,7 +18,10 @@ import com.jean.cinemappcompose.core.navigation.Routes
 import com.jean.cinemappcompose.profile.presentation.ProfileScreen
 
 @Composable
-fun HomeBottomBarNavGraph(navController: NavHostController) {
+fun HomeBottomBarNavGraph(
+    navController: NavHostController,
+    navigateToSignIn: () -> Unit
+) {
 
     NavHost(
         navController = navController,
@@ -27,7 +30,7 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
     ) {
 
         composable(route = HomeBottomBarScreen.Movies.route) {
-            MovieScreen()
+            MovieScreen(navigateToSignIn = { navigateToSignIn() })
         }
 
         composable(route = HomeBottomBarScreen.Favorites.route) {

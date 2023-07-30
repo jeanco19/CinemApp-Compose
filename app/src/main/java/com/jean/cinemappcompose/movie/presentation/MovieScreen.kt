@@ -14,7 +14,10 @@ import com.jean.cinemappcompose.presentation.common.component.DefaultButton
 import com.jean.cinemappcompose.movie.presentation.viewmodel.MovieViewModel
 
 @Composable
-fun MovieScreen(viewModel: MovieViewModel = hiltViewModel()) {
+fun MovieScreen(
+    viewModel: MovieViewModel = hiltViewModel(),
+    navigateToSignIn: () -> Unit
+) {
     Scaffold(
         content = {
             Column(modifier = Modifier.padding(it)) {
@@ -24,6 +27,7 @@ fun MovieScreen(viewModel: MovieViewModel = hiltViewModel()) {
                     label = "Cerrar Sesión",
                     onButtonClicked = {
                         viewModel.doSignOut()
+                        navigateToSignIn()
                     }
                 )
             }
