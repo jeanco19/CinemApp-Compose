@@ -3,7 +3,7 @@ package com.jean.cinemappcompose.core.presentation.component
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
 import com.jean.cinemappcompose.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordTextField(
     password: String,
@@ -38,9 +39,9 @@ fun PasswordTextField(
         singleLine = true,
         isError = errorMessage != null,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = MaterialTheme.colors.primary,
-            focusedLabelColor = MaterialTheme.colors.primary,
-            errorBorderColor = MaterialTheme.colors.error
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            focusedLabelColor = MaterialTheme.colorScheme.primary,
+            errorBorderColor = MaterialTheme.colorScheme.error
         ),
         keyboardOptions = KeyboardOptions(
             autoCorrect = false,
@@ -67,7 +68,7 @@ fun PasswordTextField(
     if (errorMessage != null) {
         Text(
             text = stringResource(id = errorMessage),
-            color = MaterialTheme.colors.error,
+            color = MaterialTheme.colorScheme.error,
             fontSize = 12.sp,
             maxLines = 1
         )

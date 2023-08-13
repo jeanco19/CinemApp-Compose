@@ -2,7 +2,7 @@ package com.jean.cinemappcompose.auth.presentation.signup.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -16,9 +16,9 @@ import com.jean.cinemappcompose.auth.presentation.signup.viewmodel.SignUpEvent
 import com.jean.cinemappcompose.auth.presentation.signup.viewmodel.SignUpUiState
 import com.jean.cinemappcompose.core.presentation.component.EmailTextField
 import com.jean.cinemappcompose.core.presentation.component.PasswordTextField
-import com.jean.cinemappcompose.presentation.common.component.AppNameText
-import com.jean.cinemappcompose.presentation.common.component.CustomProgressDialog
-import com.jean.cinemappcompose.presentation.common.component.DefaultButton
+import com.jean.cinemappcompose.core.presentation.component.AppNameText
+import com.jean.cinemappcompose.core.presentation.component.CustomProgressDialog
+import com.jean.cinemappcompose.core.presentation.component.DefaultButton
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -30,7 +30,7 @@ fun SignUpContent(
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)
-        .background(MaterialTheme.colors.background)) {
+        .background(MaterialTheme.colorScheme.background)) {
 
         val controller = LocalSoftwareKeyboardController.current
         if (isLoading) CustomProgressDialog()

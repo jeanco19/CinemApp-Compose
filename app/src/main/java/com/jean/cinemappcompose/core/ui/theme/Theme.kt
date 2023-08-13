@@ -1,18 +1,14 @@
 package com.jean.cinemappcompose.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-private val DarkColorPalette = darkColors(
+private val DarkColorPalette = darkColorScheme(
     primary = md_theme_dark_primary,
-    primaryVariant = md_theme_dark_secondary,
     secondary = md_theme_dark_secondary,
-    secondaryVariant = md_theme_dark_secondary,
     background = md_theme_dark_background,
     surface = md_theme_dark_surface,
     onPrimary = md_theme_dark_on_primary,
@@ -22,11 +18,9 @@ private val DarkColorPalette = darkColors(
     error = md_theme_dark_error
 )
 
-private val LightColorPalette = lightColors(
+private val LightColorPalette = lightColorScheme(
     primary = md_theme_light_primary,
-    primaryVariant = md_theme_light_secondary,
     secondary = md_theme_light_secondary,
-    secondaryVariant = md_theme_light_secondary,
     background = md_theme_light_background,
     surface = md_theme_light_surface,
     onPrimary = md_theme_light_on_primary,
@@ -57,7 +51,7 @@ fun CinemAppComposeTheme(
     }
 
     MaterialTheme(
-        colors = colors,
+        colorScheme = colors,
         typography = Typography,
         shapes = Shapes,
         content = content

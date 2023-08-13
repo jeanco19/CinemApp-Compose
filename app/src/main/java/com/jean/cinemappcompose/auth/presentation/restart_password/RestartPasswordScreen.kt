@@ -1,11 +1,11 @@
 package com.jean.cinemappcompose.auth.presentation.restart_password
 
-import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -18,7 +18,7 @@ import com.jean.cinemappcompose.R
 import com.jean.cinemappcompose.auth.presentation.restart_password.component.RestartPasswordContent
 import com.jean.cinemappcompose.auth.presentation.restart_password.viewmodel.RestartPasswordViewModel
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestartPasswordScreen(
     viewModel: RestartPasswordViewModel = hiltViewModel(),
@@ -52,11 +52,12 @@ fun RestartPasswordScreen(
                 text = stringResource(id = R.string.restart_password_title),
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.primary
+                color = MaterialTheme.colorScheme.primary
             )
         },
-        content = {
+        content = { padding ->
             RestartPasswordContent(
+                modifier = Modifier.padding(padding),
                 isLoading = state.isLoading,
                 isButtonEnabled = state.isButtonEnable,
                 state = state,

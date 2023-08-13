@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -19,11 +20,13 @@ import com.jean.cinemappcompose.profile.presentation.ProfileScreen
 
 @Composable
 fun HomeBottomBarNavGraph(
+    modifier: Modifier = Modifier,
     navController: NavHostController,
     navigateToSignIn: () -> Unit
 ) {
 
     NavHost(
+        modifier = modifier,
         navController = navController,
         route = Graphs.HOME,
         startDestination = HomeBottomBarScreen.Movies.route

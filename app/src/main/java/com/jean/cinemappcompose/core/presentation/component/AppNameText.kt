@@ -1,7 +1,7 @@
-package com.jean.cinemappcompose.presentation.common.component
+package com.jean.cinemappcompose.core.presentation.component
 
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
@@ -14,6 +14,6 @@ fun AppNameText() {
         text = stringResource(id = R.string.welcome_app_name),
         fontSize = 35.sp,
         fontFamily = font_titan,
-        color = MaterialTheme.colors.primary
+        color = MaterialTheme.colorScheme.primary
     )
 }

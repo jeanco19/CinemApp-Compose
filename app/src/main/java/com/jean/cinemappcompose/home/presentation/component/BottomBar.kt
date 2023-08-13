@@ -1,7 +1,7 @@
 package com.jean.cinemappcompose.home.presentation.component
 
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
@@ -26,7 +26,7 @@ fun BottomBar(navController: NavHostController) {
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
 
     if (bottomBarDestination) {
-        BottomNavigation {
+        NavigationBar {
             screens.forEach {screen ->
                 AddItem(
                     screen = screen,
@@ -45,7 +45,7 @@ fun RowScope.AddItem(
     currentDestination: NavDestination?,
     navController: NavHostController
 ) {
-    BottomNavigationItem(
+    NavigationBarItem(
         label = {
             Text(text = stringResource(id = screen.title))
         },
@@ -56,12 +56,15 @@ fun RowScope.AddItem(
             )
         },
         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
                 launchSingleTop = true
             }
-        }
+        },
+        colors = NavigationBarItemDefaults.colors(
+            indicatorColor = MaterialTheme.colorScheme.primary,
+            selectedIconColor = MaterialTheme.colorScheme.onPrimary
+        )
     )
 }

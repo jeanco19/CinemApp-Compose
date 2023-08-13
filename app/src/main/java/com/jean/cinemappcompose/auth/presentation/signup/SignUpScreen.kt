@@ -3,7 +3,7 @@ package com.jean.cinemappcompose.auth.presentation.signup
 import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -12,7 +12,8 @@ import com.jean.cinemappcompose.auth.presentation.signup.component.SignUpBottom
 import com.jean.cinemappcompose.auth.presentation.signup.component.SignUpContent
 import com.jean.cinemappcompose.auth.presentation.signup.viewmodel.SignUpViewModel
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),

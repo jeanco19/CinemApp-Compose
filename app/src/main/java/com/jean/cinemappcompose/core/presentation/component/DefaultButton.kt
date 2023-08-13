@@ -1,11 +1,8 @@
-package com.jean.cinemappcompose.presentation.common.component
+package com.jean.cinemappcompose.core.presentation.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,9 +24,9 @@ fun DefaultButton(
     Button(
         modifier = buttonModifier,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = MaterialTheme.colors.primary,
-            contentColor = MaterialTheme.colors.onPrimary,
-            disabledBackgroundColor = Color.LightGray,
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            disabledContainerColor = Color.LightGray,
             disabledContentColor = Color.White
         ),
         enabled = isButtonEnabled,
@@ -40,4 +37,5 @@ fun DefaultButton(
             fontSize = 16.sp
         )
     }
+
 }

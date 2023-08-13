@@ -2,7 +2,7 @@ package com.jean.cinemappcompose.auth.presentation.welcome
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -29,7 +29,7 @@ fun WelcomeScreen(
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)
-        .background(color = MaterialTheme.colors.background)) {
+        .background(color = MaterialTheme.colorScheme.background)) {
         Spacer(modifier = Modifier.size(40.dp))
         WelcomeContent()
         WelcomeBottom(

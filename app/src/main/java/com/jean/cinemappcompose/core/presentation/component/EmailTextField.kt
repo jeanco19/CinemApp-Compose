@@ -3,10 +3,7 @@ package com.jean.cinemappcompose.core.presentation.component
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -17,6 +14,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import com.jean.cinemappcompose.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EmailTextField(
     email: String,
@@ -36,9 +34,9 @@ fun EmailTextField(
         singleLine = true,
         isError = errorMessage != null,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = MaterialTheme.colors.primary,
-            focusedLabelColor = MaterialTheme.colors.primary,
-            errorBorderColor = MaterialTheme.colors.error
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            focusedLabelColor = MaterialTheme.colorScheme.primary,
+            errorBorderColor = MaterialTheme.colorScheme.error
         ),
         keyboardOptions = KeyboardOptions(
             autoCorrect = false,
@@ -53,7 +51,7 @@ fun EmailTextField(
     if (errorMessage != null) {
         Text(
             text = stringResource(id = errorMessage),
-            color = MaterialTheme.colors.error,
+            color = MaterialTheme.colorScheme.error,
             fontSize = 12.sp,
             maxLines = 1
         )

@@ -3,8 +3,8 @@ package com.jean.cinemappcompose.auth.presentation.signin.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -18,9 +18,9 @@ import com.jean.cinemappcompose.auth.presentation.signin.viewmodel.SignInEvent
 import com.jean.cinemappcompose.auth.presentation.signin.viewmodel.SignInUiState
 import com.jean.cinemappcompose.core.presentation.component.EmailTextField
 import com.jean.cinemappcompose.core.presentation.component.PasswordTextField
-import com.jean.cinemappcompose.presentation.common.component.AppNameText
-import com.jean.cinemappcompose.presentation.common.component.CustomProgressDialog
-import com.jean.cinemappcompose.presentation.common.component.DefaultButton
+import com.jean.cinemappcompose.core.presentation.component.AppNameText
+import com.jean.cinemappcompose.core.presentation.component.CustomProgressDialog
+import com.jean.cinemappcompose.core.presentation.component.DefaultButton
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -35,7 +35,7 @@ fun SignInContent(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .background(MaterialTheme.colors.background)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         val controller = LocalSoftwareKeyboardController.current
@@ -63,7 +63,7 @@ fun SignInContent(
                 .clickable { onRecoverPasswordClicked() },
             text = stringResource(id = R.string.forgot_your_password_text),
             fontSize = 15.sp,
-            color = MaterialTheme.colors.primary
+            color = MaterialTheme.colorScheme.primary
         )
         Spacer(modifier = Modifier.size(40.dp))
         DefaultButton(
