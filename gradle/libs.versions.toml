@@ -34,7 +34,7 @@ firebaseAuth = "21.1.0"
 firebaseBom = "29.0.0"
 
 # Coil
-coilCompose = "1.3.2"
+coilCompose = "2.4.0"
 
 # Accompanist
 accompanistSystemUi = "0.23.1"
