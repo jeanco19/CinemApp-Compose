@@ -33,7 +33,7 @@ fun HomeBottomBarNavGraph(
     ) {
 
         composable(route = HomeBottomBarScreen.Movies.route) {
-            MovieScreen(navigateToSignIn = { navigateToSignIn() })
+            MovieScreen()
         }
 
         composable(route = HomeBottomBarScreen.Favorites.route) {
@@ -41,7 +41,7 @@ fun HomeBottomBarNavGraph(
         }
 
         composable(route = HomeBottomBarScreen.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(navigateToSignIn = { navigateToSignIn() })
         }
 
     }

@@ -1,4 +1,4 @@
-package com.jean.cinemappcompose.movie.presentation.viewmodel
+package com.jean.cinemappcompose.profile.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieViewModel @Inject constructor(
+class ProfileViewModel @Inject constructor(
     private val signOutUseCase: SignOutUseCase
 ): ViewModel() {
 
