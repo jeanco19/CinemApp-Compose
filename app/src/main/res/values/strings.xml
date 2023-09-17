@@ -12,7 +12,6 @@
     <!-- SIGN IN SCREEN -->
     <string name="email_field_placeholder">Correo electrónico</string>
     <string name="password_field_placeholder">Contraseña</string>
-    <string name="show_password_image_description">Enseñar contraseña</string>
     <string name="forgot_your_password_text">¿Olvidaste tu contraseña?</string>
     <string name="still_do_not_have_account_text">¿Aún no tienes cuenta?.</string>
     <string name="sign_up_here_text">Regístrate aquí</string>
@@ -42,5 +41,19 @@
     <string name="movie_list_option">Películas</string>
     <string name="favorite_list_option">Favoritas</string>
     <string name="profile_option">Perfil</string>
+
+    <!-- MOVIES SCREEN -->
+    <string name="movie_welcome_title">Hola %1$s</string>
+    <string name="movie_welcome_description">Encuentra información sobre las películas de tu preferencia.</string>
+    <string name="see_all_movies_option">Ver Todas</string>
+    <string name="current_movies_title">Recientes</string>
+    <string name="upcoming_movies_title">Estrenos</string>
+    <string name="current_movies_description">Películas actualmente en cines</string>
+    <string name="upcoming_movies_description">Proximos estrenos en cines</string>
+    <string name="error_retrieving_movies">Ha ocurrido un error al recuperar las películas.</string>
+
+    <!-- IMAGE CONTENT DESCRIPTION -->
+    <string name="show_password_content_description">Enseñar contraseña</string>
+    <string name="home_movie_poster_content_description">Home Movie Poster</string>
 
 </resources>

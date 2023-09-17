@@ -9,12 +9,15 @@ import com.jean.cinemappcompose.core.util.Constants.EMPTY_STRING
 import com.jean.cinemappcompose.movie.domain.usecase.GetCurrentMovies
 import com.jean.cinemappcompose.movie.domain.usecase.GetMovieGenres
 import com.jean.cinemappcompose.movie.domain.usecase.GetUpcomingMovies
+import com.jean.cinemappcompose.profile.domain.usecase.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
+    private val getUserUseCase: GetUserUseCase,
     private val getCurrentMovies: GetCurrentMovies,
     private val getUpcomingMovies: GetUpcomingMovies,
     private val getMovieGenres: GetMovieGenres
@@ -24,9 +27,20 @@ class MoviesViewModel @Inject constructor(
         private set
 
     init {
+        getUserData()
         getCurrentMovies()
         getUpcomingMovies()
         getMovieGenres()
+    }
+
+    private fun getUserData() {
+        viewModelScope.launch {
+            getUserUseCase.invoke().collect { result ->
+                result.onSuccess { user ->
+                    uiState = uiState.copy(username = user.fullName)
+                }
+            }
+        }
     }
 
     private fun getCurrentMovies() {

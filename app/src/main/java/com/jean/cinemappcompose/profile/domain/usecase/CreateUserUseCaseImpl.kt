@@ -14,7 +14,7 @@ class CreateUserUseCaseImpl @Inject constructor(
         name: String,
         lastName: String,
         email: String
-    ): Result<Unit> {
+    ) {
         val fullName = StringBuilder()
             .append(name)
             .append(SPACE_STRING)

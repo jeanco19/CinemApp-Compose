@@ -57,7 +57,7 @@ fun PasswordTextField(
             IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
                 Icon(
                     imageVector = image,
-                    contentDescription = stringResource(id = R.string.show_password_image_description)
+                    contentDescription = stringResource(id = R.string.show_password_content_description)
                 )
             }
         },

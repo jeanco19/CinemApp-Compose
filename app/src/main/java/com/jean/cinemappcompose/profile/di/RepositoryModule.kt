@@ -1,8 +1,8 @@
 package com.jean.cinemappcompose.profile.di
 
-import com.google.firebase.firestore.FirebaseFirestore
 import com.jean.cinemappcompose.profile.data.datasource.ProfileRemoteDataSource
-import com.jean.cinemappcompose.profile.data.datasource.ProfileRemoteDataSourceImpl
+import com.jean.cinemappcompose.profile.data.repository.ProfileRepositoryImpl
+import com.jean.cinemappcompose.profile.domain.repository.ProfileRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,12 +11,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataSourceProfileModule {
+object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideProfileRemoteDataSource(firestore: FirebaseFirestore): ProfileRemoteDataSource {
-        return ProfileRemoteDataSourceImpl(firestore)
+    fun provideProfileRepository(profileRemoteDataSource: ProfileRemoteDataSource): ProfileRepository {
+        return ProfileRepositoryImpl(profileRemoteDataSource)
     }
 
 }

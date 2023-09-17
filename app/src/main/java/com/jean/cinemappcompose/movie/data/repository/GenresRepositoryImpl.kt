@@ -9,6 +9,7 @@ import javax.inject.Inject
 class GenresRepositoryImpl @Inject constructor(
     private val genresRemoteDatasource: GenresRemoteDataSource
 ) : GenresRepository {
+
     override suspend fun getMovieGenres(): Result<List<Genre>> {
         return try {
             val remoteResponse = genresRemoteDatasource.getMovieGenres().map { genreApiModel ->
