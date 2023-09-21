@@ -1,4 +1,4 @@
-package com.jean.cinemappcompose.movie.data.datasource
+package com.jean.cinemappcompose.movie.data.datasource.genre
 
 import com.jean.cinemappcompose.core.data.network.MoviesApiService
 import com.jean.cinemappcompose.core.data.util.Constants.SPANISH_LANGUAGE_TYPE

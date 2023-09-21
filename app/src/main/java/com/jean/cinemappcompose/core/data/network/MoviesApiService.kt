@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface MoviesApiService {
 
     @GET("movie/now_playing")
-    suspend fun getCurrentMovies(): Response<MoviesResponse>
+    suspend fun getInTheaterMovies(): Response<MoviesResponse>
 
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(): Response<MoviesResponse>

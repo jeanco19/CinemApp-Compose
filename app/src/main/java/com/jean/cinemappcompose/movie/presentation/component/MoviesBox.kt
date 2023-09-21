@@ -14,7 +14,7 @@ import com.jean.cinemappcompose.movie.domain.models.Movie
 fun MoviesBox(
     isCurrentLoading: Boolean,
     isUpcomingLoading: Boolean,
-    currentMovies: List<Movie>,
+    inTheaterMovies: List<Movie>,
     upcomingMovies: List<Movie>,
 ) {
     Column(modifier = Modifier
@@ -24,7 +24,7 @@ fun MoviesBox(
             isLoading = isCurrentLoading,
             titleType = stringResource(id = R.string.current_movies_title),
             descriptionType = stringResource(id = R.string.current_movies_description),
-            movies = currentMovies,
+            movies = inTheaterMovies,
             onMovieClicked = {},
             onSeeAllClicked = {}
         )

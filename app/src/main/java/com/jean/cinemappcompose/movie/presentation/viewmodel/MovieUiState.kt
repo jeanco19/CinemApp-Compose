@@ -9,7 +9,7 @@ data class MovieUiState(
     val genres: List<Genre> = listOf(),
     val isLoadingCurrent: Boolean = false,
     val isLoadingUpcoming: Boolean = false,
-    val currentMovies: List<Movie> = listOf(),
+    val inTheaterMovies: List<Movie> = listOf(),
     val upcomingMovies: List<Movie> = listOf(),
     val errorCurrentMovies: String = EMPTY_STRING,
     val errorUpcomingMovies: String = EMPTY_STRING,

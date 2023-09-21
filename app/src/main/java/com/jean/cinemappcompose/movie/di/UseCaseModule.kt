@@ -2,12 +2,12 @@ package com.jean.cinemappcompose.movie.di
 
 import com.jean.cinemappcompose.movie.domain.repository.GenresRepository
 import com.jean.cinemappcompose.movie.domain.repository.MoviesRepository
-import com.jean.cinemappcompose.movie.domain.usecase.GetCurrentMovies
-import com.jean.cinemappcompose.movie.domain.usecase.GetCurrentMoviesImpl
-import com.jean.cinemappcompose.movie.domain.usecase.GetMovieGenres
-import com.jean.cinemappcompose.movie.domain.usecase.GetMovieGenresImpl
-import com.jean.cinemappcompose.movie.domain.usecase.GetUpcomingMovies
-import com.jean.cinemappcompose.movie.domain.usecase.GetUpcomingMoviesImpl
+import com.jean.cinemappcompose.movie.domain.usecase.movie.GetInTheaterMovies
+import com.jean.cinemappcompose.movie.domain.usecase.movie.GetInTheaterMoviesImpl
+import com.jean.cinemappcompose.movie.domain.usecase.genre.GetMovieGenres
+import com.jean.cinemappcompose.movie.domain.usecase.genre.GetMovieGenresImpl
+import com.jean.cinemappcompose.movie.domain.usecase.movie.GetUpcomingMovies
+import com.jean.cinemappcompose.movie.domain.usecase.movie.GetUpcomingMoviesImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,8 +20,8 @@ object UseCaseModule {
     @Provides
     fun provideGetCurrentMovies(
         moviesRepository: MoviesRepository
-    ): GetCurrentMovies {
-        return GetCurrentMoviesImpl(moviesRepository)
+    ): GetInTheaterMovies {
+        return GetInTheaterMoviesImpl(moviesRepository)
     }
 
     @Provides

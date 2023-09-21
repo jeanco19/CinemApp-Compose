@@ -18,7 +18,7 @@ fun MovieContent(state: MovieUiState) {
         MoviesBox(
             isCurrentLoading = state.isLoadingCurrent,
             isUpcomingLoading = state.isLoadingUpcoming,
-            currentMovies = state.currentMovies,
+            inTheaterMovies = state.inTheaterMovies,
             upcomingMovies = state.upcomingMovies
         )
     }

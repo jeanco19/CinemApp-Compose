@@ -1,7 +1,9 @@
 package com.jean.cinemappcompose.movie.di
 
-import com.jean.cinemappcompose.movie.data.datasource.GenresRemoteDataSource
-import com.jean.cinemappcompose.movie.data.datasource.MoviesRemoteDataSource
+import com.jean.cinemappcompose.movie.data.datasource.genre.GenresLocalDataSource
+import com.jean.cinemappcompose.movie.data.datasource.genre.GenresRemoteDataSource
+import com.jean.cinemappcompose.movie.data.datasource.movie.MoviesLocalDataSource
+import com.jean.cinemappcompose.movie.data.datasource.movie.MoviesRemoteDataSource
 import com.jean.cinemappcompose.movie.data.repository.GenresRepositoryImpl
 import com.jean.cinemappcompose.movie.data.repository.MoviesRepositoryImpl
 import com.jean.cinemappcompose.movie.domain.repository.GenresRepository
@@ -19,17 +21,19 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideMoviesRepository(
-        moviesRemoteDataSource: MoviesRemoteDataSource
+        moviesRemoteDataSource: MoviesRemoteDataSource,
+        moviesLocalDataSource: MoviesLocalDataSource
     ): MoviesRepository {
-        return MoviesRepositoryImpl(moviesRemoteDataSource)
+        return MoviesRepositoryImpl(moviesRemoteDataSource, moviesLocalDataSource)
     }
 
     @Singleton
     @Provides
     fun provideGenresRepository(
-        genresRemoteDataSource: GenresRemoteDataSource
+        genresRemoteDataSource: GenresRemoteDataSource,
+        genresLocalDataSource: GenresLocalDataSource
     ): GenresRepository {
-        return GenresRepositoryImpl(genresRemoteDataSource)
+        return GenresRepositoryImpl(genresRemoteDataSource, genresLocalDataSource)
     }
 
 }

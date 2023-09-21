@@ -1,4 +1,4 @@
-package com.jean.cinemappcompose.movie.data.datasource
+package com.jean.cinemappcompose.movie.data.datasource.movie
 
 import com.jean.cinemappcompose.core.data.network.MoviesApiService
 import com.jean.cinemappcompose.core.data.network.model.MovieApiModel
@@ -12,9 +12,9 @@ class MoviesRemoteDataSourceImpl @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : MoviesRemoteDataSource {
 
-    override suspend fun getCurrentMovies(): List<MovieApiModel> {
+    override suspend fun getInTheaterMovies(): List<MovieApiModel> {
         return withContext(ioDispatcher) {
-            moviesApiService.getCurrentMovies().body()?.results ?: listOf()
+            moviesApiService.getInTheaterMovies().body()?.results ?: listOf()
         }
     }
 

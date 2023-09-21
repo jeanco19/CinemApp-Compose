@@ -49,7 +49,7 @@
     <string name="current_movies_title">Recientes</string>
     <string name="upcoming_movies_title">Estrenos</string>
     <string name="current_movies_description">Películas actualmente en cines</string>
-    <string name="upcoming_movies_description">Proximos estrenos en cines</string>
+    <string name="upcoming_movies_description">Próximos estrenos en cines</string>
     <string name="error_retrieving_movies">Ha ocurrido un error al recuperar las películas.</string>
 
     <!-- IMAGE CONTENT DESCRIPTION -->

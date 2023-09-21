@@ -1,9 +1,10 @@
 package com.jean.cinemappcompose.movie.domain.repository
 
 import com.jean.cinemappcompose.movie.domain.models.Genre
+import kotlinx.coroutines.flow.Flow
 
 interface GenresRepository {
 
-    suspend fun getMovieGenres(): Result<List<Genre>>
+    fun getMovieGenres(): Flow<Result<List<Genre>>>
 
 }
