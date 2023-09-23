@@ -23,6 +23,7 @@ fun SignInScreen(
 
     val state = viewModel.uiState
     val context = LocalContext.current
+    val snackBarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(key1 = viewModel.uiState.isSignedIn) {
         if (viewModel.uiState.isSignedIn) {
@@ -36,19 +37,24 @@ fun SignInScreen(
         }
     }
 
-    Scaffold(
-        content = {
-            SignInContent(
-                isLoading = state.isLoading,
-                isButtonEnabled = state.isButtonEnable,
-                state = state,
-                onEvent = viewModel::onEvent,
-                onRecoverPasswordClicked = { navigateToRecoverPassword() },
+    LaunchedEffect(key1 = state.hasConnectivity) {
+        if (state.connectivityMessage != null) {
+            snackBarHostState.showSnackbar(
+                message = context.getString(state.connectivityMessage),
+                duration = SnackbarDuration.Short
             )
-        },
-        bottomBar = {
-            SignInBottom { navigateToSignUp() }
         }
-    )
+    }
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
+    ) {
+        SignInContent(
+            state = state,
+            onEvent = viewModel::onEvent,
+            onRecoverPasswordClicked = { navigateToRecoverPassword() },
+        )
+        SignInBottom { navigateToSignUp() }
+    }
 
 }

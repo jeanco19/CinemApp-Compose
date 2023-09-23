@@ -15,6 +15,7 @@ object AuthErrorParser {
         return when (error) {
             SignUpResult.SIGN_UP_ERROR.name -> R.string.error_sign_up
             SignUpResult.EMAIL_ALREADY_IN_USE.name -> R.string.error_email_already_in_use
+            SignUpResult.UNAVAILABLE_NETWORK.name -> R.string.generic_connectivity_error
             else -> R.string.generic_error
         }
     }
@@ -25,6 +26,7 @@ object AuthErrorParser {
             SignInResult.SIGN_IN_ERROR.name -> R.string.error_sign_in
             SignInResult.USER_NOT_FOUND.name -> R.string.error_user_not_found
             SignInResult.PASSWORD_WRONG.name -> R.string.error_password_wrong
+            SignInResult.UNAVAILABLE_NETWORK.name -> R.string.generic_connectivity_error
             else -> R.string.generic_error
         }
     }
@@ -34,6 +36,7 @@ object AuthErrorParser {
         return when (error) {
             RestartPasswordResult.RESTART_PASSWORD_ERROR.name -> R.string.error_restart_password
             RestartPasswordResult.USER_NOT_FOUND.name -> R.string.error_user_not_found
+            RestartPasswordResult.UNAVAILABLE_NETWORK.name -> R.string.generic_connectivity_error
             else -> R.string.generic_error
         }
     }

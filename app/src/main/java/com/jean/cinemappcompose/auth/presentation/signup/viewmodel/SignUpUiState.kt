@@ -13,5 +13,7 @@ data class SignUpUiState(
     val password: String = EMPTY_STRING,
     @StringRes val emailError: Int? = null,
     @StringRes val passwordError: Int? = null,
-    @StringRes val generalError: Int? = null
+    @StringRes val generalError: Int? = null,
+    val hasConnectivity: Boolean = true,
+    @StringRes val connectivityMessage: Int? = null
 )

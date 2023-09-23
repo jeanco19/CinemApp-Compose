@@ -5,7 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jean.cinemappcompose.core.domain.usecase.ConnectivityManagerUseCase
 import com.jean.cinemappcompose.core.util.Constants.EMPTY_STRING
+import com.jean.cinemappcompose.core.util.connectivity.ConnectivityStatus
 import com.jean.cinemappcompose.movie.domain.usecase.movie.GetInTheaterMovies
 import com.jean.cinemappcompose.movie.domain.usecase.genre.GetMovieGenres
 import com.jean.cinemappcompose.movie.domain.usecase.movie.GetUpcomingMovies
@@ -19,7 +21,8 @@ class MoviesViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val getInTheaterMovies: GetInTheaterMovies,
     private val getUpcomingMovies: GetUpcomingMovies,
-    private val getMovieGenres: GetMovieGenres
+    private val getMovieGenres: GetMovieGenres,
+    private val connectivityManagerUseCase: ConnectivityManagerUseCase
 ): ViewModel() {
 
     var uiState by mutableStateOf(MovieUiState())
@@ -30,6 +33,7 @@ class MoviesViewModel @Inject constructor(
         getInTheaterMovies()
         getUpcomingMovies()
         getMovieGenres()
+        handleConnectivity()
     }
 
     private fun getUserData() {
@@ -87,6 +91,17 @@ class MoviesViewModel @Inject constructor(
                 it.onSuccess { genres ->
                     uiState = uiState.copy(genres = genres)
                 }
+            }
+        }
+    }
+
+    private fun handleConnectivity() {
+        viewModelScope.launch {
+            connectivityManagerUseCase.invoke().collect { status ->
+                uiState = uiState.copy(
+                    hasConnectivity = status == ConnectivityStatus.AVAILABLE,
+                    connectivityMessage = status.message
+                )
             }
         }
     }

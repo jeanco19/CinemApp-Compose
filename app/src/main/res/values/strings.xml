@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">CinemApp Compose</string>
     <string name="generic_error">Ha ocurrido un error.</string>
+    <string name="generic_connectivity_error">Ocurrió un error con tu conexión. Por favor valida e inténtalo de nuevo.</string>
+    <string name="available_connectivity_message">Conexión a Internet disponible.</string>
+    <string name="unavailable_connectivity_message">Conexión a Internet no disponible.</string>
+    <string name="losing_connectivity_message">Estás perdiendo tu conexión a Internet.</string>
+    <string name="lost_connectivity_message">Se ha perdido la conexión a Internet.</string>
 
     <!-- WELCOME SCREEN -->
     <string name="welcome_app_name">CinemApp</string>

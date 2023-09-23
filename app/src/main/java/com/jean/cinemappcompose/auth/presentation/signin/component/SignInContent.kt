@@ -25,8 +25,6 @@ import com.jean.cinemappcompose.core.presentation.component.DefaultButton
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignInContent(
-    isLoading: Boolean = false,
-    isButtonEnabled: Boolean = false,
     state: SignInUiState,
     onEvent: (SignInEvent) -> Unit,
     onRecoverPasswordClicked: () -> Unit,
@@ -39,7 +37,7 @@ fun SignInContent(
     ) {
 
         val controller = LocalSoftwareKeyboardController.current
-        if (isLoading) CustomProgressDialog()
+        if (state.isLoading) CustomProgressDialog()
 
         Spacer(modifier = Modifier.size(30.dp))
         AppNameText()
@@ -68,7 +66,7 @@ fun SignInContent(
         Spacer(modifier = Modifier.size(40.dp))
         DefaultButton(
             label = stringResource(id = R.string.sign_in_button_text),
-            isButtonEnabled = isButtonEnabled,
+            isButtonEnabled = state.isButtonEnable,
             onButtonClicked = {
                 controller?.hide()
                 onEvent(SignInEvent.SignIn)

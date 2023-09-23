@@ -10,6 +10,8 @@ import com.jean.cinemappcompose.auth.domain.usecase.restart_password.RestartPass
 import com.jean.cinemappcompose.auth.util.AuthErrorParser
 import com.jean.cinemappcompose.auth.domain.model.EmailResult
 import com.jean.cinemappcompose.auth.domain.usecase.validator.EmailValidatorUseCase
+import com.jean.cinemappcompose.core.domain.usecase.ConnectivityManagerUseCase
+import com.jean.cinemappcompose.core.util.connectivity.ConnectivityStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,11 +19,16 @@ import javax.inject.Inject
 @HiltViewModel
 class RestartPasswordViewModel @Inject constructor(
     private val restartPasswordUseCase: RestartPasswordUseCase,
-    private val emailValidatorUseCase: EmailValidatorUseCase
+    private val emailValidatorUseCase: EmailValidatorUseCase,
+    private val connectivityManagerUseCase: ConnectivityManagerUseCase
 ) : ViewModel() {
 
     var uiState by mutableStateOf(RestartPasswordUiState())
         private set
+
+    init {
+        handleConnectivity()
+    }
 
     fun onEvent(event: RestartPasswordEvent) {
         when (event) {
@@ -64,6 +71,17 @@ class RestartPasswordViewModel @Inject constructor(
             isSendEmail = false,
             generalError = null
         )
+    }
+
+    private fun handleConnectivity() {
+        viewModelScope.launch {
+            connectivityManagerUseCase.invoke().collect { status ->
+                uiState = uiState.copy(
+                    hasConnectivity = status == ConnectivityStatus.AVAILABLE,
+                    connectivityMessage = status.message
+                )
+            }
+        }
     }
 
 }

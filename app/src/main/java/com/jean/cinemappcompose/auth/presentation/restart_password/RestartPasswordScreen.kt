@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -27,6 +30,7 @@ fun RestartPasswordScreen(
 
     val state = viewModel.uiState
     val context = LocalContext.current
+    val snackBarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(state.isSendEmail) {
         if (state.isSendEmail) {
@@ -45,6 +49,15 @@ fun RestartPasswordScreen(
         }
     }
 
+    LaunchedEffect(key1 = state.hasConnectivity) {
+        if (state.connectivityMessage != null) {
+            snackBarHostState.showSnackbar(
+                message = context.getString(state.connectivityMessage),
+                duration = SnackbarDuration.Short
+            )
+        }
+    }
+
     Scaffold(
         topBar = {
             Text(
@@ -55,15 +68,15 @@ fun RestartPasswordScreen(
                 color = MaterialTheme.colorScheme.primary
             )
         },
-        content = { padding ->
-            RestartPasswordContent(
-                modifier = Modifier.padding(padding),
-                isLoading = state.isLoading,
-                isButtonEnabled = state.isButtonEnable,
-                state = state,
-                onEvent = viewModel::onEvent
-            )
-        }
-    )
+        snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
+    ) { padding ->
+        RestartPasswordContent(
+            modifier = Modifier.padding(padding),
+            isLoading = state.isLoading,
+            isButtonEnabled = state.isButtonEnable,
+            state = state,
+            onEvent = viewModel::onEvent
+        )
+    }
 
 }

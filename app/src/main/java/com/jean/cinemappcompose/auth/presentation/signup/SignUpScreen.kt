@@ -22,6 +22,7 @@ fun SignUpScreen(
 
     val state = viewModel.uiState
     val context = LocalContext.current
+    val snackBarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(key1 = viewModel.uiState.isSignedUp) {
         if (viewModel.uiState.isSignedUp) {
@@ -36,17 +37,24 @@ fun SignUpScreen(
         }
     }
 
-    Scaffold(
-        content = {
-            SignUpContent(
-                isLoading = state.isLoading,
-                state = state,
-                onEvent = viewModel::onEvent
+    LaunchedEffect(key1 = state.hasConnectivity) {
+        if (state.connectivityMessage != null) {
+            snackBarHostState.showSnackbar(
+                message = context.getString(state.connectivityMessage),
+                duration = SnackbarDuration.Short
             )
-        },
-        bottomBar = {
-            SignUpBottom(onTextPressed = { navigateToSignIn() })
         }
-    )
+    }
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
+    ) {
+        SignUpContent(
+            isLoading = state.isLoading,
+            state = state,
+            onEvent = viewModel::onEvent
+        )
+        SignUpBottom(onTextPressed = { navigateToSignIn() })
+    }
 }
 

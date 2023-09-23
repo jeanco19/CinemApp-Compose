@@ -12,6 +12,8 @@ import com.jean.cinemappcompose.auth.domain.model.EmailResult
 import com.jean.cinemappcompose.auth.domain.model.PasswordResult
 import com.jean.cinemappcompose.auth.domain.usecase.validator.EmailValidatorUseCase
 import com.jean.cinemappcompose.auth.domain.usecase.validator.PasswordValidatorUseCase
+import com.jean.cinemappcompose.core.domain.usecase.ConnectivityManagerUseCase
+import com.jean.cinemappcompose.core.util.connectivity.ConnectivityStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,11 +22,16 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     private val emailValidatorUseCase: EmailValidatorUseCase,
-    private val passwordValidatorUseCase: PasswordValidatorUseCase
+    private val passwordValidatorUseCase: PasswordValidatorUseCase,
+    private val connectivityManagerUseCase: ConnectivityManagerUseCase
 ) : ViewModel() {
 
     var uiState by mutableStateOf(SignInUiState())
         private set
+
+    init {
+        handleConnectivity()
+    }
 
     fun onEvent(event: SignInEvent) {
         when (event) {
@@ -81,6 +88,17 @@ class SignInViewModel @Inject constructor(
         uiState = uiState.copy(
             isButtonEnable = uiState.email.isNotEmpty() && uiState.password.isNotEmpty()
         )
+    }
+
+    private fun handleConnectivity() {
+        viewModelScope.launch {
+            connectivityManagerUseCase.invoke().collect { status ->
+                uiState = uiState.copy(
+                    hasConnectivity = status == ConnectivityStatus.AVAILABLE,
+                    connectivityMessage = status.message
+                )
+            }
+        }
     }
 
 }
