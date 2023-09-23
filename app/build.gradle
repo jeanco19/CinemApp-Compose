@@ -106,9 +106,13 @@ dependencies {
 
     // Testing
     testImplementation libs.junit
+    testImplementation libs.google.truth
+    testImplementation libs.mockk
+
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso
     androidTestImplementation libs.compose.test.junit
+
     debugImplementation libs.compose.test.ui.tooling
     debugImplementation libs.compose.test.manifest
 

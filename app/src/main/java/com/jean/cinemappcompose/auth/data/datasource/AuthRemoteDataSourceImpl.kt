@@ -3,9 +3,9 @@ package com.jean.cinemappcompose.auth.data.datasource
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
-import com.jean.cinemappcompose.auth.domain.model.RestartPasswordResult
-import com.jean.cinemappcompose.auth.domain.model.SignInResult
-import com.jean.cinemappcompose.auth.domain.model.SignUpResult
+import com.jean.cinemappcompose.auth.domain.model.RestartPasswordErrorResult
+import com.jean.cinemappcompose.auth.domain.model.SignInErrorResult
+import com.jean.cinemappcompose.auth.domain.model.SignUpErrorResult
 import com.jean.cinemappcompose.auth.util.toRestartPasswordErrorTypes
 import com.jean.cinemappcompose.auth.util.toSignInErrorTypes
 import com.jean.cinemappcompose.auth.util.toSignUpErrorTypes
@@ -33,7 +33,7 @@ class AuthRemoteDataSourceImpl @Inject constructor(
                     Throwable(message = exception.toSignUpErrorTypes(exception.errorCode))
                 )
             } catch (exception: FirebaseNetworkException) {
-                Result.failure(Throwable(message = SignUpResult.UNAVAILABLE_NETWORK.name))
+                Result.failure(Throwable(message = SignUpErrorResult.UNAVAILABLE_NETWORK.name))
             }
         }
     }
@@ -48,7 +48,7 @@ class AuthRemoteDataSourceImpl @Inject constructor(
                     Throwable(message = exception.toSignInErrorTypes(exception.errorCode))
                 )
             } catch (exception: FirebaseNetworkException) {
-                Result.failure(Throwable(message = SignInResult.UNAVAILABLE_NETWORK.name))
+                Result.failure(Throwable(message = SignInErrorResult.UNAVAILABLE_NETWORK.name))
             }
         }
     }
@@ -67,7 +67,7 @@ class AuthRemoteDataSourceImpl @Inject constructor(
                     Throwable(message = exception.toRestartPasswordErrorTypes(exception.errorCode))
                 )
             } catch (exception: FirebaseNetworkException) {
-                Result.failure(Throwable(message = RestartPasswordResult.UNAVAILABLE_NETWORK.name))
+                Result.failure(Throwable(message = RestartPasswordErrorResult.UNAVAILABLE_NETWORK.name))
             }
         }
     }

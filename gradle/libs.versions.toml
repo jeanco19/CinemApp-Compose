@@ -49,6 +49,12 @@ androidxJUnit = "1.1.5"
 # Expresso
 expresso = "3.5.1"
 
+# Truth
+googleTruth = "1.1.4"
+
+# Mokk
+mockk = "1.13.4"
+
 # Plugins
 androidGradlePlugin = "7.4.2"
 androidKotlinPlugin = "1.8.0"
@@ -112,6 +118,8 @@ androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", 
 compose-test-junit = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "jetpackCompose" }
 compose-test-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "jetpackCompose" }
 compose-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "jetpackCompose" }
+google-truth = { group = "com.google.truth", name = "truth", version.ref = "googleTruth" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 
 [plugins]

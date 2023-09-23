@@ -2,9 +2,9 @@ package com.jean.cinemappcompose.auth.util
 
 import androidx.annotation.StringRes
 import com.jean.cinemappcompose.R
-import com.jean.cinemappcompose.auth.domain.model.RestartPasswordResult
-import com.jean.cinemappcompose.auth.domain.model.SignInResult
-import com.jean.cinemappcompose.auth.domain.model.SignUpResult
+import com.jean.cinemappcompose.auth.domain.model.RestartPasswordErrorResult
+import com.jean.cinemappcompose.auth.domain.model.SignInErrorResult
+import com.jean.cinemappcompose.auth.domain.model.SignUpErrorResult
 import com.jean.cinemappcompose.auth.domain.model.EmailResult
 import com.jean.cinemappcompose.auth.domain.model.PasswordResult
 
@@ -13,9 +13,9 @@ object AuthErrorParser {
     @StringRes
     fun signUpError(error: String): Int {
         return when (error) {
-            SignUpResult.SIGN_UP_ERROR.name -> R.string.error_sign_up
-            SignUpResult.EMAIL_ALREADY_IN_USE.name -> R.string.error_email_already_in_use
-            SignUpResult.UNAVAILABLE_NETWORK.name -> R.string.generic_connectivity_error
+            SignUpErrorResult.SIGN_UP_ERROR.name -> R.string.error_sign_up
+            SignUpErrorResult.EMAIL_ALREADY_IN_USE.name -> R.string.error_email_already_in_use
+            SignUpErrorResult.UNAVAILABLE_NETWORK.name -> R.string.generic_connectivity_error
             else -> R.string.generic_error
         }
     }
@@ -23,10 +23,10 @@ object AuthErrorParser {
     @StringRes
     fun signInError(error: String): Int {
         return when (error) {
-            SignInResult.SIGN_IN_ERROR.name -> R.string.error_sign_in
-            SignInResult.USER_NOT_FOUND.name -> R.string.error_user_not_found
-            SignInResult.PASSWORD_WRONG.name -> R.string.error_password_wrong
-            SignInResult.UNAVAILABLE_NETWORK.name -> R.string.generic_connectivity_error
+            SignInErrorResult.SIGN_IN_ERROR.name -> R.string.error_sign_in
+            SignInErrorResult.USER_NOT_FOUND.name -> R.string.error_user_not_found
+            SignInErrorResult.PASSWORD_WRONG.name -> R.string.error_password_wrong
+            SignInErrorResult.UNAVAILABLE_NETWORK.name -> R.string.generic_connectivity_error
             else -> R.string.generic_error
         }
     }
@@ -34,9 +34,9 @@ object AuthErrorParser {
     @StringRes
     fun restartPasswordError(error: String): Int {
         return when (error) {
-            RestartPasswordResult.RESTART_PASSWORD_ERROR.name -> R.string.error_restart_password
-            RestartPasswordResult.USER_NOT_FOUND.name -> R.string.error_user_not_found
-            RestartPasswordResult.UNAVAILABLE_NETWORK.name -> R.string.generic_connectivity_error
+            RestartPasswordErrorResult.RESTART_PASSWORD_ERROR.name -> R.string.error_restart_password
+            RestartPasswordErrorResult.USER_NOT_FOUND.name -> R.string.error_user_not_found
+            RestartPasswordErrorResult.UNAVAILABLE_NETWORK.name -> R.string.generic_connectivity_error
             else -> R.string.generic_error
         }
     }

@@ -23,12 +23,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.jean.cinemappcompose.R
+import com.jean.cinemappcompose.core.data.util.Constants.IMAGE_URL
 import com.jean.cinemappcompose.core.util.Constants
 import com.jean.cinemappcompose.movie.domain.models.Movie
 
@@ -107,8 +109,10 @@ fun HomeMovieItem(
             .padding(horizontal = 5.dp)
             .clip(RoundedCornerShape(6.dp))
             .clickable { onMovieClicked() },
-        model = com.jean.cinemappcompose.core.data.util.Constants.IMAGE_URL + poster,
+        model = poster,
         contentDescription = stringResource(id = R.string.home_movie_poster_content_description),
         contentScale = ContentScale.Crop,
+        placeholder = painterResource(id = R.drawable.movie_placeholder),
+        error = painterResource(id = R.drawable.movie_placeholder),
     )
 }
