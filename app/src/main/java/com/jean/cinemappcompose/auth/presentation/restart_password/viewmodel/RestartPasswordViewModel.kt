@@ -52,7 +52,7 @@ class RestartPasswordViewModel @Inject constructor(
                     .onSuccess {
                         uiState = uiState.copy(isSendEmail = true)
                     }
-                    .onFailure {throwable ->
+                    .onFailure { throwable ->
                         uiState = uiState.copy(
                             generalError = AuthErrorParser.restartPasswordError(
                                 throwable.message ?: EMPTY_STRING

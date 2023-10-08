@@ -19,6 +19,7 @@ hiltNavigationCompose = "1.0.0"
 # Coroutines
 kotlixCoroutines = "1.6.4"
 kotlixCoroutinesPlayServices = "1.6.0"
+kotlinxCoroutinesTest = "1.6.1"
 
 # Navigation
 navigationCompose = "2.5.3"
@@ -54,6 +55,9 @@ googleTruth = "1.1.4"
 
 # Mokk
 mockk = "1.13.4"
+
+# Arch Testing
+archCoreTesting = "2.1.0"
 
 # Plugins
 androidGradlePlugin = "7.4.2"
@@ -120,6 +124,8 @@ compose-test-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", 
 compose-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "jetpackCompose" }
 google-truth = { group = "com.google.truth", name = "truth", version.ref = "googleTruth" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "archCoreTesting" }
 
 
 [plugins]

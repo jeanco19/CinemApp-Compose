@@ -8,25 +8,25 @@ import com.jean.cinemappcompose.auth.domain.model.SignUpErrorResult
 import com.jean.cinemappcompose.auth.util.toRestartPasswordErrorTypes
 import com.jean.cinemappcompose.auth.util.toSignInErrorTypes
 import com.jean.cinemappcompose.auth.util.toSignUpErrorTypes
+import com.jean.cinemappcompose.core.util.Constants.EMPTY_STRING
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
+import io.mockk.junit4.MockKRule
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 class AuthRemoteDataSourceImplTest {
 
     companion object {
-        const val EMPTY_VALUE = ""
         const val UNKNOWN_EXCEPTION = "ERROR"
     }
 
-    @MockK
-    lateinit var firebaseAuthException: FirebaseAuthException
+    @get:Rule
+    val mockkRule = MockKRule(this)
 
-    @Before
-    fun setup() {
-        MockKAnnotations.init(this)
-    }
+    @MockK(relaxed = true)
+    lateinit var firebaseAuthException: FirebaseAuthException
 
     @Test
     fun `validate when sign in function return known exception is parsing to signInErrorResult`() {
@@ -50,7 +50,7 @@ class AuthRemoteDataSourceImplTest {
     fun `validate when sign in function return empty exception is parsing to default signInErrorResult`() {
         val expectedErrorType = SignInErrorResult.SIGN_IN_ERROR.name
 
-        val errorType = firebaseAuthException.toSignInErrorTypes(EMPTY_VALUE)
+        val errorType = firebaseAuthException.toSignInErrorTypes(EMPTY_STRING)
 
         Truth.assertThat(errorType).isEqualTo(expectedErrorType)
     }
@@ -77,7 +77,7 @@ class AuthRemoteDataSourceImplTest {
     fun `validate when sign up function return empty exception is parsing to default signUpErrorResult`() {
         val expectedErrorType = SignUpErrorResult.SIGN_UP_ERROR.name
 
-        val errorType = firebaseAuthException.toSignUpErrorTypes(EMPTY_VALUE)
+        val errorType = firebaseAuthException.toSignUpErrorTypes(EMPTY_STRING)
 
         Truth.assertThat(errorType).isEqualTo(expectedErrorType)
     }
@@ -104,7 +104,7 @@ class AuthRemoteDataSourceImplTest {
     fun `validate when restart password function return empty exception is parsing to default restartPasswordErrorResult`() {
         val expectedErrorType = RestartPasswordErrorResult.RESTART_PASSWORD_ERROR.name
 
-        val errorType = firebaseAuthException.toRestartPasswordErrorTypes(EMPTY_VALUE)
+        val errorType = firebaseAuthException.toRestartPasswordErrorTypes(EMPTY_STRING)
 
         Truth.assertThat(errorType).isEqualTo(expectedErrorType)
     }
