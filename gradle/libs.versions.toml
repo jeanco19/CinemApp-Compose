@@ -56,6 +56,9 @@ googleTruth = "1.1.4"
 # Mokk
 mockk = "1.13.4"
 
+# Mock Web Server
+mockWebServer = "4.9.1"
+
 # Arch Testing
 archCoreTesting = "2.1.0"
 
@@ -126,6 +129,7 @@ google-truth = { group = "com.google.truth", name = "truth", version.ref = "goog
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "archCoreTesting" }
+mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "mockWebServer" }
 
 
 [plugins]
