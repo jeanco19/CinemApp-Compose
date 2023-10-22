@@ -4,6 +4,8 @@ import com.google.common.truth.Truth
 import com.jean.cinemappcompose.core.util.Constants.EMPTY_STRING
 import com.jean.cinemappcompose.core.util.JsonFileLoader
 import com.jean.cinemappcompose.core.util.MainCoroutineRule
+import com.jean.cinemappcompose.core.util.TestConstants.SERVER_PORT
+import com.jean.cinemappcompose.core.util.TestConstants.SLASH_SEPARATOR
 import com.jean.cinemappcompose.core.util.createMoviesApiServiceMock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -27,8 +29,8 @@ class GenresRemoteDataSourceImplTest {
     @Before
     fun setup() {
         mockWebServer = MockWebServer()
-        mockWebServer.start(port = 8080)
-        val baseUrl = mockWebServer.url(path = "/").toString()
+        mockWebServer.start(port = SERVER_PORT)
+        val baseUrl = mockWebServer.url(path = SLASH_SEPARATOR).toString()
         sut = GenresRemoteDataSourceImpl(
             createMoviesApiServiceMock(baseUrl),
             mainCoroutineRule.testDispatcher
