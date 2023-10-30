@@ -15,7 +15,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
@@ -25,37 +24,33 @@ object DataSourceModule {
     @Singleton
     @Provides
     fun provideMoviesRemoteDataSource(
-        moviesApiService: MoviesApiService,
-        coroutineDispatcher: CoroutineDispatcher
+        moviesApiService: MoviesApiService
     ): MoviesRemoteDataSource {
-        return MoviesRemoteDataSourceImpl(moviesApiService, coroutineDispatcher)
+        return MoviesRemoteDataSourceImpl(moviesApiService)
     }
 
     @Singleton
     @Provides
     fun provideGenresRemoteDataSource(
-        moviesApiService: MoviesApiService,
-        coroutineDispatcher: CoroutineDispatcher
+        moviesApiService: MoviesApiService
     ): GenresRemoteDataSource {
-        return GenresRemoteDataSourceImpl(moviesApiService, coroutineDispatcher)
+        return GenresRemoteDataSourceImpl(moviesApiService)
     }
 
     @Singleton
     @Provides
     fun provideMoviesLocalDataSource(
-        movieDao: MovieDao,
-        coroutineDispatcher: CoroutineDispatcher
+        movieDao: MovieDao
     ): MoviesLocalDataSource {
-        return MoviesLocalDataSourceImpl(movieDao, coroutineDispatcher)
+        return MoviesLocalDataSourceImpl(movieDao)
     }
 
     @Singleton
     @Provides
     fun provideGenresLocalDataSource(
-        genreDao: GenreDao,
-        coroutineDispatcher: CoroutineDispatcher
+        genreDao: GenreDao
     ): GenresLocalDataSource {
-        return GenreLocalDataSourceImpl(genreDao, coroutineDispatcher)
+        return GenreLocalDataSourceImpl(genreDao)
     }
 
 }

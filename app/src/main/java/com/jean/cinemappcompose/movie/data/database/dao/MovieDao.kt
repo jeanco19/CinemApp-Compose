@@ -17,9 +17,9 @@ interface MovieDao {
     suspend fun upsertUpcomingMovies(movies: List<UpcomingMoviesEntity>)
 
     @Query("SELECT * FROM in_theater_movies")
-    fun getInTheaterMovies(): Flow<List<InTheaterMovieEntity>>
+    fun getInTheaterMovies(): Flow<List<InTheaterMovieEntity>?>
 
     @Query("SELECT * FROM upcoming_movies")
-    fun getUpcomingMovies(): Flow<List<UpcomingMoviesEntity>>
+    fun getUpcomingMovies(): Flow<List<UpcomingMoviesEntity>?>
 
 }

@@ -9,7 +9,6 @@ import com.jean.cinemappcompose.movie.domain.repository.GenresRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GenresRepositoryImpl @Inject constructor(
@@ -19,15 +18,15 @@ class GenresRepositoryImpl @Inject constructor(
 
     override fun getMovieGenres(): Flow<Result<List<Genre>>> {
         return flow {
-            val remoteData = genresRemoteDatasource.getMovieGenres().map { genreApiModel ->
-                genreApiModel.toDomain()
-            }.also { genres ->
-                genresLocalDataSource.insertGenres(genres.map { genre -> genre.toGenreEntity() })
-            }
-
-            genresLocalDataSource.getGenres().map { genresEntity ->
-                val localData = genresEntity.map { genreEntity -> genreEntity.toDomain() }
-                emit(Result.success(localData.ifEmpty { remoteData }))
+            genresLocalDataSource.getGenres().collect { genreEntities ->
+                if (genreEntities.isNullOrEmpty()) {
+                    genresRemoteDatasource.getMovieGenres().map { genreApiModel ->
+                        genreApiModel.toDomain()
+                    }.also { genres ->
+                        genresLocalDataSource.insertGenres(genres.map { it.toGenreEntity() })
+                    }
+                }
+                emit(Result.success(genreEntities?.map { it.toDomain() } ?: listOf()))
             }
         }.catch { throwable ->
             emit(Result.failure(throwable))

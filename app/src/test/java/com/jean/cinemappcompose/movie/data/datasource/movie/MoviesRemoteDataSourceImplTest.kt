@@ -32,8 +32,7 @@ class MoviesRemoteDataSourceImplTest {
         mockWebServer.start(port = SERVER_PORT)
         val baseUrl = mockWebServer.url(path = SLASH_SEPARATOR).toString()
         sut = MoviesRemoteDataSourceImpl(
-            createMoviesApiServiceMock(baseUrl),
-            mainCoroutineRule.testDispatcher
+            createMoviesApiServiceMock(baseUrl)
         )
     }
 

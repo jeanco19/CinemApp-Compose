@@ -20,19 +20,18 @@ class MoviesRepositoryImpl @Inject constructor(
     override fun getInTheaterMovies(): Flow<Result<List<Movie>>> {
         return flow {
             try {
-                var remoteData = listOf<Movie>()
                 moviesLocalDataSource.getInTheaterMovies().collect { localData ->
-                    if (localData.isEmpty()) {
-                        remoteData = moviesRemoteDataSource.getInTheaterMovies().map { movieApi ->
+                    if (localData.isNullOrEmpty()) {
+                        moviesRemoteDataSource.getInTheaterMovies().map { movieApi ->
                             movieApi.toDomain(MovieType.IN_THEATER)
+                        }.also { movies ->
+                            moviesLocalDataSource.insertInTheaterMovies(
+                                movies.map { it.toInTheaterEntity() }
+                            )
                         }
-                        moviesLocalDataSource.insertInTheaterMovies(remoteData.map { movie ->
-                            movie.toInTheaterEntity()
-                        })
+
                     }
-                    emit(Result.success(
-                        if (localData.isEmpty()) remoteData else localData.map { it.toDomain() }
-                    ))
+                    emit(Result.success(localData?.map { it.toDomain() } ?: listOf()))
                 }
             } catch (exception: Exception) {
                 emit(Result.failure(Throwable(exception.message)))
@@ -43,19 +42,18 @@ class MoviesRepositoryImpl @Inject constructor(
     override fun getUpcomingMovies(): Flow<Result<List<Movie>>> {
         return flow {
             try {
-                var remoteData = listOf<Movie>()
                 moviesLocalDataSource.getUpcomingMovies().collect { localData ->
-                    if (localData.isEmpty()) {
-                        remoteData = moviesRemoteDataSource.getUpcomingMovies().map { movieApi ->
+                    if (localData.isNullOrEmpty()) {
+                        moviesRemoteDataSource.getInTheaterMovies().map { movieApi ->
                             movieApi.toDomain(MovieType.UPCOMING)
+                        }.also { movies ->
+                            moviesLocalDataSource.insertUpcomingMovies(
+                                movies.map { it.toUpcomingEntity() }
+                            )
                         }
-                        moviesLocalDataSource.insertUpcomingMovies(remoteData.map { movie ->
-                            movie.toUpcomingEntity()
-                        })
+
                     }
-                    emit(Result.success(
-                        if (localData.isEmpty()) remoteData else localData.map { it.toDomain() }
-                    ))
+                    emit(Result.success(localData?.map { it.toDomain() } ?: listOf()))
                 }
             } catch (exception: Exception) {
                 emit(Result.failure(Throwable(exception.message)))

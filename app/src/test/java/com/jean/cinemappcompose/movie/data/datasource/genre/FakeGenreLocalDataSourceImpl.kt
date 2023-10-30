@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.flow
 
 class FakeGenreLocalDataSourceImpl : GenresLocalDataSource {
 
-    val fakeGenres = mutableListOf<GenreEntity>()
+    private val fakeGenres = mutableListOf<GenreEntity>()
 
     override suspend fun insertGenres(genres: List<GenreEntity>) {
         fakeGenres.addAll(genres)

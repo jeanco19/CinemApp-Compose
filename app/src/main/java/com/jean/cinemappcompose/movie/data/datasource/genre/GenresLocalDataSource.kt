@@ -7,6 +7,6 @@ interface GenresLocalDataSource {
 
     suspend fun insertGenres(genres: List<GenreEntity>)
 
-    fun getGenres(): Flow<List<GenreEntity>>
+    fun getGenres(): Flow<List<GenreEntity>?>
 
 }
