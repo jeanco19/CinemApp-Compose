@@ -20,9 +20,9 @@ class GenresRepositoryImplTest {
     @get:Rule
     val mockkRule = MockKRule(this)
 
-    private lateinit var genreLocalSource: GenresLocalDataSource
     @MockK(relaxed = true)
     lateinit var genreRemoteSource: GenresRemoteDataSource
+    private lateinit var genreLocalSource: GenresLocalDataSource
 
     private lateinit var sut: GenresRepository
 

@@ -8,6 +8,7 @@ import javax.inject.Inject
 class GetMovieGenresImpl @Inject constructor(
     private val genresRepository: GenresRepository
 ) : GetMovieGenres {
+
     override fun invoke(): Flow<Result<List<Genre>>> {
         return genresRepository.getMovieGenres()
     }
