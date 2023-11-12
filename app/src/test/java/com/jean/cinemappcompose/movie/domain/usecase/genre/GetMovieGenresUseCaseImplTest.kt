@@ -9,15 +9,15 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-class GetMovieGenresImplTest {
+class GetMovieGenresUseCaseImplTest {
 
     private lateinit var fakeGenresRepository: FakeGenresRepository
-    private lateinit var sut: GetMovieGenres
+    private lateinit var sut: GetMovieGenresUseCase
 
     @Before
     fun setup() {
         fakeGenresRepository = FakeGenresRepository()
-        sut = GetMovieGenresImpl(fakeGenresRepository)
+        sut = GetMovieGenresUseCaseImpl(fakeGenresRepository)
     }
 
     @Test

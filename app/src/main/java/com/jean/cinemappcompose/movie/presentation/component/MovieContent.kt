@@ -16,7 +16,7 @@ fun MovieContent(state: MovieUiState) {
             onGenreClicked = {}
         )
         MoviesBox(
-            isCurrentLoading = state.isLoadingCurrent,
+            isCurrentLoading = state.isLoadingInTheater,
             isUpcomingLoading = state.isLoadingUpcoming,
             inTheaterMovies = state.inTheaterMovies,
             upcomingMovies = state.upcomingMovies

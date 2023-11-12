@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.jean.cinemappcompose.core.domain.usecase.ConnectivityManagerUseCase
 import com.jean.cinemappcompose.core.util.Constants.EMPTY_STRING
 import com.jean.cinemappcompose.core.util.connectivity.ConnectivityStatus
-import com.jean.cinemappcompose.movie.domain.usecase.movie.GetInTheaterMovies
-import com.jean.cinemappcompose.movie.domain.usecase.genre.GetMovieGenres
-import com.jean.cinemappcompose.movie.domain.usecase.movie.GetUpcomingMovies
+import com.jean.cinemappcompose.movie.domain.usecase.movie.GetInTheaterMoviesUseCase
+import com.jean.cinemappcompose.movie.domain.usecase.genre.GetMovieGenresUseCase
+import com.jean.cinemappcompose.movie.domain.usecase.movie.GetUpcomingMoviesUseCase
 import com.jean.cinemappcompose.profile.domain.usecase.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,9 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
-    private val getInTheaterMovies: GetInTheaterMovies,
-    private val getUpcomingMovies: GetUpcomingMovies,
-    private val getMovieGenres: GetMovieGenres,
+    private val getInTheaterMoviesUseCase: GetInTheaterMoviesUseCase,
+    private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
+    private val getMovieGenresUseCase: GetMovieGenresUseCase,
     private val connectivityManagerUseCase: ConnectivityManagerUseCase
 ): ViewModel() {
 
@@ -36,7 +36,7 @@ class MoviesViewModel @Inject constructor(
         handleConnectivity()
     }
 
-    private fun getUserData() {
+    fun getUserData() {
         viewModelScope.launch {
             getUserUseCase.invoke().collect { result ->
                 result.onSuccess { user ->
@@ -47,18 +47,18 @@ class MoviesViewModel @Inject constructor(
     }
 
     private fun getInTheaterMovies() {
-        uiState = uiState.copy(isLoadingCurrent = true)
+        uiState = uiState.copy(isLoadingInTheater = true)
         viewModelScope.launch {
-            getInTheaterMovies.invoke().collect { result ->
+            getInTheaterMoviesUseCase.invoke().collect { result ->
                 result.onSuccess { movies ->
                     uiState = uiState.copy(
-                        isLoadingCurrent = false,
+                        isLoadingInTheater = false,
                         inTheaterMovies = movies
                     )
                 }.onFailure { throwable ->
                     uiState = uiState.copy(
-                        isLoadingCurrent = false,
-                        errorCurrentMovies = throwable.message ?: EMPTY_STRING
+                        isLoadingInTheater = false,
+                        errorInTheaterMovies = throwable.message ?: EMPTY_STRING
                     )
                 }
             }
@@ -68,7 +68,7 @@ class MoviesViewModel @Inject constructor(
     private fun getUpcomingMovies() {
         uiState = uiState.copy(isLoadingUpcoming = true)
         viewModelScope.launch {
-            getUpcomingMovies.invoke().collect {
+            getUpcomingMoviesUseCase.invoke().collect {
                 it.onSuccess { movies ->
                     uiState = uiState.copy(
                         isLoadingUpcoming = false,
@@ -87,7 +87,7 @@ class MoviesViewModel @Inject constructor(
 
     private fun getMovieGenres() {
         viewModelScope.launch {
-            getMovieGenres.invoke().collect {
+            getMovieGenresUseCase.invoke().collect {
                 it.onSuccess { genres ->
                     uiState = uiState.copy(genres = genres)
                 }

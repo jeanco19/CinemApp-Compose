@@ -1,7 +1,7 @@
 package com.jean.cinemappcompose.movie.domain.usecase.movie
 
 import com.google.common.truth.Truth
-import com.jean.cinemappcompose.core.util.inTheaterMovies
+import com.jean.cinemappcompose.core.util.upcomingMovies
 import com.jean.cinemappcompose.movie.data.mapper.toDomain
 import com.jean.cinemappcompose.movie.data.repository.FakeMoviesRepository
 import com.jean.cinemappcompose.movie.domain.models.Movie
@@ -10,21 +10,21 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-class GetInTheaterMoviesImplTest {
+class GetUpcomingMoviesUseCaseImplTest {
 
     private lateinit var fakeMoviesRepository: FakeMoviesRepository
 
-    private lateinit var sut: GetInTheaterMovies
+    private lateinit var sut: GetUpcomingMoviesUseCase
 
     @Before
     fun setup() {
         fakeMoviesRepository = FakeMoviesRepository()
-        sut = GetInTheaterMoviesImpl(fakeMoviesRepository)
+        sut = GetUpcomingMoviesUseCaseImpl(fakeMoviesRepository)
     }
 
     @Test
-    fun `validate when getting in theater movies, then returns all movie data`() = runTest {
-        val expectedData = inTheaterMovies.map { it.toDomain() }
+    fun `validate when getting upcoming movies, then returns all movie data`() = runTest {
+        val expectedData = upcomingMovies.map { it.toDomain() }
         var currentData = listOf<Movie>()
 
         sut.invoke().collect { result ->
@@ -36,7 +36,7 @@ class GetInTheaterMoviesImplTest {
         Truth.assertThat(currentData).isEqualTo(expectedData)
         Truth.assertThat(currentData[0].id).isNotNull()
         Truth.assertThat(currentData[0].title).isNotEmpty()
-        Truth.assertThat(currentData[0].type).isEqualTo(MovieType.IN_THEATER)
+        Truth.assertThat(currentData[0].type).isEqualTo(MovieType.UPCOMING)
         Truth.assertThat(currentData[0].overview).isNotEmpty()
         Truth.assertThat(currentData[0].posterPath).isNotEmpty()
         Truth.assertThat(currentData[0].releaseDate).isNotEmpty()

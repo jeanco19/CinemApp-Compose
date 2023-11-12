@@ -5,9 +5,9 @@ import com.jean.cinemappcompose.movie.domain.repository.MoviesRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetUpcomingMoviesImpl @Inject constructor(
+class GetUpcomingMoviesUseCaseImpl @Inject constructor(
     private val moviesRepository: MoviesRepository
-) : GetUpcomingMovies {
+) : GetUpcomingMoviesUseCase {
 
     override fun invoke(): Flow<Result<List<Movie>>> {
         return moviesRepository.getUpcomingMovies()

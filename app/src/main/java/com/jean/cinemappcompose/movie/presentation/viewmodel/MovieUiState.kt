@@ -8,11 +8,11 @@ import com.jean.cinemappcompose.movie.domain.models.Movie
 data class MovieUiState(
     val username: String = EMPTY_STRING,
     val genres: List<Genre> = listOf(),
-    val isLoadingCurrent: Boolean = false,
+    val isLoadingInTheater: Boolean = false,
     val isLoadingUpcoming: Boolean = false,
     val inTheaterMovies: List<Movie> = listOf(),
     val upcomingMovies: List<Movie> = listOf(),
-    val errorCurrentMovies: String = EMPTY_STRING,
+    val errorInTheaterMovies: String = EMPTY_STRING,
     val errorUpcomingMovies: String = EMPTY_STRING,
     val hasConnectivity: Boolean = true,
     @StringRes val connectivityMessage: Int? = null

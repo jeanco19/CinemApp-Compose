@@ -4,6 +4,7 @@ import com.jean.cinemappcompose.movie.data.database.entities.GenreEntity
 import com.jean.cinemappcompose.movie.data.database.entities.InTheaterMovieEntity
 import com.jean.cinemappcompose.movie.data.database.entities.UpcomingMoviesEntity
 import com.jean.cinemappcompose.movie.domain.models.MovieType
+import com.jean.cinemappcompose.profile.domain.model.User
 
 val genres = listOf(
     GenreEntity(
@@ -36,4 +37,10 @@ val upcomingMovies = listOf(
         voteAverage = 0.0,
         genreIds = listOf(28, 12, 278)
     )
+)
+
+val userData = User(
+    id = "1",
+    fullName = "Pedro Perez",
+    email = "pperez@gmail.com"
 )
